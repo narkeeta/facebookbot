@@ -26,7 +26,7 @@ app.get('/', function (req, res) {
 					cities.push(key);
 				}
 			}
-	res.send(cities.indexOf('Sheffield'));
+	res.send(links['Lincoln'][1]);
 })
 
 // for Facebook verification
@@ -64,7 +64,6 @@ app.post('/webhook/', function (req, res) {
 			if (cities.indexOf(text) !== -1) {
 				let payload = event.message.quick_reply.payload;
 				if (payload === 'CITY_GIVEN') {
-					console.log(text);
 					askCityEvents(sender, text)
 				}
 				continue
@@ -173,11 +172,10 @@ function askCityEvents(sender, city) {
 	for(var i = 0; i < links[city].length; i++) {
 		var obj = {
 			"content_type":"text",
-			"title":links[i].name,
-			"payload":"USER_EVENT_LINCOLN_" + links[i].name
+			"title":links[city][i].name,
+			"payload":"USER_EVENT_LINCOLN_" + links[city][i].name
 		};
 		messageData.quick_replies[i] = obj;
-		console.log(obj.id);
 	}
 	request({
 		url: 'https://graph.facebook.com/v2.6/me/messages',
