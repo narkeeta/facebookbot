@@ -3,6 +3,7 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const request = require('request')
+const links =  require('../links.json')
 const app = express()
 
 
@@ -19,7 +20,7 @@ app.use(bodyParser.json())
 // Index route
 app.get('/', function (req, res) {
 	
-	res.send(bodyParser.json());
+	res.send(links);
 })
 
 // for Facebook verification
