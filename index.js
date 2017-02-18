@@ -3,8 +3,10 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const request = require('request')
+const schedule = require('node-schedule')
 const fs = require('fs')
 const links =  JSON.parse(fs.readFileSync('links.json', 'utf8'))
+const users =  JSON.parse(fs.readFileSync('users.json', 'utf8'))
 const app = express()
 
 
@@ -21,11 +23,11 @@ app.use(bodyParser.json())
 // Index route
 app.get('/', function (req, res) {
 	let cities = [];
-			for (var key in links) {
-				if (links.hasOwnProperty(key)) {
-					cities.push(key);
-				}
-			}
+	for (var key in links) {
+		if (links.hasOwnProperty(key)) {
+			cities.push(key);
+		}
+	}
 	res.send(links['Lincoln'][1]);
 })
 
@@ -111,71 +113,32 @@ function sendTextMessage(sender, text) {
 	})
 }
 
-function sendGenericMessage(sender) {
-	let messageData = {
-		"attachment": {
-			"type": "template",
-			"payload": {
-				"template_type": "generic",
-				"elements": [{
-					"title": "First card",
-					"subtitle": "Element #1 of an hscroll",
-					"image_url": "http://messengerdemo.parseapp.com/img/rift.png",
-					"buttons": [{
-						"type": "web_url",
-						"url": "https://www.messenger.com",
-						"title": "web url"
-					}, {
-						"type": "postback",
-						"title": "Postback",
-						"payload": "Payload for first element in a generic bubble",
-					}],
-				}, {
-					"title": "Second card",
-					"subtitle": "Element #2 of an hscroll",
-					"image_url": "http://messengerdemo.parseapp.com/img/gearvr.png",
-					"buttons": [{
-						"type": "postback",
-						"title": "Postback",
-						"payload": "Payload for second element in a generic bubble",
-					}],
-				}]
-			}
-		}
-	}
-	request({
-		url: 'https://graph.facebook.com/v2.6/me/messages',
-		qs: {
-			access_token: token
-		},
-		method: 'POST',
-		json: {
-			recipient: {
-				id: sender
-			},
-			message: messageData,
-		}
-	}, function (error, response, body) {
-		if (error) {
-			console.log('Error sending messages: ', error)
-		} else if (response.body.error) {
-			console.log('Error: ', response.body.error)
-		}
-	})
-}   
-
 function askCityEvents(sender, city) {
 	let messageData = {
 		"text":"What club events in "+city+" would you like me to remind you for? 🙌🙌",
 		"quick_replies":[]
 	}
 	for(var i = 0; i < links[city].length; i++) {
-		var obj = {
-			"content_type":"text",
-			"title":links[city][i].name,
-			"payload":"USER_EVENT_LINCOLN_" + links[city][i].name
-		};
-		messageData.quick_replies[i] = obj;
+		if (users.hasOwnProperty(sender)) {
+			if (users.sender.indexOf(links[city][i].name) !== -1) {
+			}
+			else {
+				var obj = {
+					"content_type":"text",
+					"title":links[city][i].name,
+					"payload":"USER_EVENT_"+city+"_" + links[city][i].name
+				};
+				messageData.quick_replies[i] = obj;	
+			}
+		}
+		else {
+			var obj = {
+				"content_type":"text",
+				"title":links[city][i].name,
+				"payload":"USER_EVENT_"+city+"_" + links[city][i].name
+			};
+			messageData.quick_replies[i] = obj;
+		}
 	}
 	request({
 		url: 'https://graph.facebook.com/v2.6/me/messages',
@@ -201,18 +164,17 @@ function askCityEvents(sender, city) {
 function sendStarterButtons(sender) {
 	let messageData = {
 		"text":"Hi there🙋 I'm here to make sure you never miss out on an absolutely banging time! 😎 I'll do this by reminding you to buy tickets for your fave events! Let me know what city you're in and let's get onnit 🍻",
-		"quick_replies":[
-			{
-				"content_type":"text",
-				"title":"Lincoln",
-				"payload":"CITY_GIVEN"
-			},
-			{
+		"quick_replies":[]
+	}
+	for (var key in links) {
+		if (links.hasOwnProperty(key)) {
+			let obj = {
 				"content_type":"text",
 				"title":"Sheffield",
 				"payload":"CITY_GIVEN"
-			}
-		]
+			};
+			messageData.quick_replies.push(obj);
+		}
 	}
 	request({
 		url: 'https://graph.facebook.com/v2.6/me/messages',

@@ -1,14 +1,8 @@
-[
-    {
-        "name": "hi",
-        "day": "there",
-        "hour": "2013-05-05 23:45",
-        "link": "hello2@email.se"
-    },
-    {
-        "name": "bye",
-        "day": "there",
-        "hour": "2013-05-05 23:45",
-        "link": "hello2@email.se"
-    }
-]
+{
+	"13431412" : ["asdfasdf","asdfas","superbowl"],
+	"13431412" : ["asdfasdf","asdfas","superbowl"],
+	"13431412" : ["asdfasdf","asdfas","superbowl"],
+	"13431412" : ["asdfasdf","asdfas","superbowl"],
+	"13431412" : ["asdfasdf","asdfas","superbowl"],
+	"13431412" : ["asdfasdf","asdfas","superbowl"],
+}
