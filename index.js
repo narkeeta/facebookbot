@@ -49,20 +49,7 @@ app.post('/webhook/', function (req, res) {
 		let sender = event.sender.id;
 		if (event.message && event.message.text) {
 			let text = event.message.text;
-			let cities = [];
-			for (key in links) {
-				if (links.hasOwnProperty(key)) {
-					cities.push(key);
-				}
-			}
-			if (cities.indexOf(text) !== -1) {
-				let payload = event.message.quick_reply.payload;
-				if (payload === 'CITY_GIVEN') {
-					console.log(text);
-					sendStarterButtons(sender)
-				}
-				continue
-			}
+			
 			sendStarterButtons(sender)
 		}
 		if (event.postback) {
