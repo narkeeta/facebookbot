@@ -66,7 +66,9 @@ app.post('/webhook/', function (req, res) {
 				if (links.hasOwnProperty(payload)) {
 					for (var a = 0; a < links[payload].length; a++) {
 						if (links[payload][a].name === text) {
-							sendTextMessage(sender, "Awesome we'll remind you soon to get a ticket for that event!");
+							let days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saterday"];
+							let theirday = days[links[payload][a].day];
+							sendTextMessage(sender, "Awesome we'll remind you "+theirday+" to get a ticket for the"+links[payload][a].name+"  event!");
 							break;
 						}
 					}
