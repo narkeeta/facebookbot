@@ -1,29 +1,14 @@
-"Lincoln": {
-	"Supbowl": {
-		"dayofweek": "1",
-		"hour": "12"
-		"link": "https://google.com",
+[
+	{
+		"name": "hi",
+		"day": "there",
+		"hour": "2013-05-05 23:45",
+		"link": "hello2@email.se"
 	},
-	"banana": {
-		"dayofweek": "1",
-		"hour": "12"
-		"link": "https://google.com",
-	},
-	"red": {
-		"dayofweek": "1",
-		"hour": "12"
-		"link": "https://google.com",
-	},
-	"blue": {
-		"dayofweek": "1",
-		"hour": "12"
-		"link": "https://google.com",
-	},
-	"green": {
-		"dayofweek": "1",
-		"hour": "12"
-		"link": "https://google.com",
-	},
-}
-	
-	
+	{
+		"name": "bye",
+		"day": "there",
+		"hour": "2013-05-05 23:45",
+		"link": "hello2@email.se"
+	}
+]

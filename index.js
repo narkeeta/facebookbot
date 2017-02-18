@@ -3,7 +3,8 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const request = require('request')
-const links =  require('links.json')
+const fs = require('fs')
+const links =  JSON.parse(fs.readFileSync('links.json', 'utf8'))
 const app = express()
 
 
@@ -19,6 +20,9 @@ app.use(bodyParser.json())
 
 // Index route
 app.get('/', function (req, res) {
+	var json = JSON.stringify(links, null, 4);
+	fs.writeFile('users.json', json, 'utf8', function(data){console.log(data);});
+
 	res.send(links);
 })
 
@@ -191,6 +195,16 @@ function askLincolnEvents(sender) {
 				"payload":"USER_EVENT_LINCOLN_ALL"
 			}
 		]
+	}
+	let links = JSON.parse(fs.readFileSync('links.json', 'utf8'));
+	for(var i = 0; i < links.length; i++) {
+		var obj = {
+			"content_type":"text",
+			"title":links[i].name,
+			"payload":"USER_EVENT_LINCOLN_" + links[i].name
+		};
+		messageData.quick_replies[i] = obj;
+		console.log(obj.id);
 	}
 	request({
 		url: 'https://graph.facebook.com/v2.6/me/messages',
