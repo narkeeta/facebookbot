@@ -58,7 +58,8 @@ app.post('/webhook/', function (req, res) {
 			if (cities.indexOf(text) !== -1) {
 				let payload = event.message.quick_reply.payload;
 				if (payload === 'CITY_GIVEN') {
-					askCityEvents(sender, text);
+					console.log(text);
+					sendStarterButtons(sender)
 				}
 				continue
 			}
