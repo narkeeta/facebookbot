@@ -31,13 +31,34 @@ app.get('/', function (req, res) {
 	let sender = "13423423";
 	users[sender] = {};
 	users[sender][payload] = [event];
-	fs.writeFile('users.json', JSON.stringify(users, null, 4), function (err) {
+	writefile("users.json", users);
+	res.send('Lincoln');
+})
+
+app.get('/laksjfalsdkjfj', function (req, res) {
+	let cities = [];
+	for (var xxxx = 0; xxxx < links.Lincoln.length; xxxx++) {
+		console.log(links.Lincoln[xxxx].name)
+	}
+	let payload = "Lincoln";
+	let event = "bananannana";
+	let sender = "13423423";
+	users[sender] = {};
+	users[sender][payload] = [event];
+	fs.writeFileSync("users.json", JSON.stringify(users, null, 4), function (err) {
 		if (err) return console.log(err);
-		console.log(JSON.stringify(file));
-		console.log('writing to ' + fileName);
+		console.log(JSON.stringify(json));
+		console.log('writing to ' + filename);
 	});
 	res.send('Lincoln');
 })
+function writefile(filename, json) {
+	fs.writeFileSync(filename, JSON.stringify(json, null, 4), function (err) {
+		if (err) return console.log(err);
+		console.log(JSON.stringify(json));
+		console.log('writing to ' + filename);
+	});
+}
 
 // for Facebook verification
 app.get('/webhook/', function (req, res) {
@@ -82,7 +103,7 @@ app.post('/webhook/', function (req, res) {
 
 							if (users.hasOwnProperty(sender)) {
 								users[sender][payload].push(links[payload][a].name);
-								fs.writeFile('users.json', JSON.stringify(users, null, 4), function (err) {
+								fs.writeFileSync('users.json', JSON.stringify(users, null, 4), function (err) {
 									if (err) return console.log(err);
 									console.log(JSON.stringify(file));
 									console.log('writing to ' + fileName);
@@ -91,7 +112,7 @@ app.post('/webhook/', function (req, res) {
 							else {
 								users[sender] = {};
 								users[sender][payload] = [links[payload][a].name];
-								fs.writeFile('users.json', JSON.stringify(users, null, 4), function (err) {
+								fs.writeFileSync('users.json', JSON.stringify(users, null, 4), function (err) {
 									if (err) return console.log(err);
 									console.log(JSON.stringify(file));
 									console.log('writing to ' + fileName);
