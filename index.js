@@ -170,7 +170,7 @@ function sendStarterButtons(sender) {
 		if (links.hasOwnProperty(key)) {
 			let obj = {
 				"content_type":"text",
-				"title":"Sheffield",
+				"title":key,
 				"payload":"CITY_GIVEN"
 			};
 			messageData.quick_replies.push(obj);
