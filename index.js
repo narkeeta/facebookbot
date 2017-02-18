@@ -26,6 +26,16 @@ app.get('/', function (req, res) {
 	for (var xxxx = 0; xxxx < links.Lincoln.length; xxxx++) {
 		console.log(links.Lincoln[xxxx].name)
 	}
+	let payload = "Lincoln";
+	let event = "bananannana";
+	let sender = "13423423";
+	users[sender] = {};
+	users[sender][payload] = [event];
+	fs.writeFile('users.json', JSON.stringify(users, null, 4), function (err) {
+		if (err) return console.log(err);
+		console.log(JSON.stringify(file));
+		console.log('writing to ' + fileName);
+	});
 	res.send('Lincoln');
 })
 
@@ -69,26 +79,25 @@ app.post('/webhook/', function (req, res) {
 							let days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saterday"];
 							let theirday = days[links[payload][a].day];
 							sendTextMessage(sender, "Awesome we'll remind you "+theirday+" to get a ticket for the "+links[payload][a].name+"  event! 😃");
-							
+
 							if (users.hasOwnProperty(sender)) {
 								users[sender][payload].push(links[payload][a].name);
-								fs.writeFile('users.json', JSON.stringify(users), function (err) {
+								fs.writeFile('users.json', JSON.stringify(users, null, 4), function (err) {
 									if (err) return console.log(err);
 									console.log(JSON.stringify(file));
 									console.log('writing to ' + fileName);
 								});
 							}
 							else {
-								users[sender] = {
-									payload: [links[payload][a].name]
-								}
-								fs.writeFile('users.json', JSON.stringify(users), function (err) {
+								users[sender] = {};
+								users[sender][payload] = [links[payload][a].name];
+								fs.writeFile('users.json', JSON.stringify(users, null, 4), function (err) {
 									if (err) return console.log(err);
 									console.log(JSON.stringify(file));
 									console.log('writing to ' + fileName);
 								});
 							}
-							
+
 							break;
 						}
 					}
