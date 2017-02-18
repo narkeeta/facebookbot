@@ -48,17 +48,20 @@ app.post('/webhook/', function (req, res) {
 		let event = req.body.entry[0].messaging[i];
 		let sender = event.sender.id;
 		if (event.message && event.message.text) {
-			let text = event.message.text
+			let text = event.message.text;
+			let bool = false;
 			for (var key in links)
 			{
 				if (text === key) {
 					let payload = event.message.quick_reply.payload;
 					if (payload === 'CITY_GIVEN') {
-						askCityEvents(sender, key)
+						askCityEvents(sender, key);
+						bool = true;
+						break;
 					}
-					continue
 				}
 			}
+			if (bool == false) { continue; }
 			sendStarterButtons(sender)
 		}
 		if (event.postback) {
