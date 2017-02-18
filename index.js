@@ -49,19 +49,19 @@ app.post('/webhook/', function (req, res) {
 		let sender = event.sender.id;
 		if (event.message && event.message.text) {
 			let text = event.message.text;
-			let bool = false;
-			for (var key in links)
-			{
-				if (text === key) {
-					let payload = event.message.quick_reply.payload;
-					if (payload === 'CITY_GIVEN') {
-						askCityEvents(sender, key);
-						bool = true;
-						break;
-					}
+			let cities = [];
+			for (key in links) {
+				if (links.hasOwnProperty(key)) {
+					cities.push(key);
 				}
 			}
-			if (bool == false) { continue; }
+			if (cities.indexOf(text) !== -1) {
+				let payload = event.message.quick_reply.payload;
+				if (payload === 'CITY_GIVEN') {
+					askCityEvents(sender, text);
+				}
+				continue
+			}
 			sendStarterButtons(sender)
 		}
 		if (event.postback) {
