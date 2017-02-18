@@ -17,7 +17,7 @@ app.use(bodyParser.json())
 
 // Index route
 app.get('/', function (req, res) {
-	var file_content = fs.readFileSync('./link.json');
+	var file_content = fs.readFileSync('./links.json');
 	var links = JSON.parse(file_content);
 	for (var key in p) {
 		if (p.hasOwnProperty(key)) {
