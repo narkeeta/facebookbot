@@ -20,7 +20,7 @@ app.get('/', function (req, res) {
 	var fs = require('fs');
 	var file_content = fs.readFileSync('./links.json');
 	var links = JSON.parse(file_content);
-	res.send(links)
+	res.send("helo")
 })
 
 // for Facebook verification
