@@ -62,14 +62,7 @@ app.post('/webhook/', function (req, res) {
 				}
 				continue
 			}
-			if (links.hasOwnProperty(payload)) {
-				for (var a = 0; a < links.payload.length; a++) {
-					if (links.payload[a].name === text) {
-						sendTextMessage(sender, "Awesome we'll remind you soon to get a ticket for that event!")
-					}
-				}
-				continue
-			}
+		
 			sendStarterButtons(sender)
 		}
 		if (event.postback) {
