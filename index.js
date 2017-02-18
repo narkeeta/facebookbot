@@ -17,13 +17,7 @@ app.use(bodyParser.json())
 
 // Index route
 app.get('/', function (req, res) {
-	var file_content = fs.readFileSync('./links.json');
-	var links = JSON.parse(file_content);
-	for (var key in p) {
-		if (p.hasOwnProperty(key)) {
-			console.log(key + " -> " + p[key]);
-		}
-	}
+	console.log("hell0")
 	res.send('Hello world, I am a chat bot')
 })
 
