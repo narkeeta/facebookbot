@@ -17,6 +17,7 @@ app.use(bodyParser.json())
 
 // Index route
 app.get('/', function (req, res) {
+	var fs = require('fs');
 	var file_content = fs.readFileSync('./links.json');
 	var links = JSON.parse(file_content);
 	res.send(links)
