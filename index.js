@@ -72,10 +72,9 @@ app.post('/webhook/', function (req, res) {
 						}
 					}
 				}
+				continue
 			}
-			else {
-				sendStarterButtons(sender)
-			}
+			sendStarterButtons(sender)
 		}
 		if (event.postback) {
 			let text = JSON.stringify(event.postback)
