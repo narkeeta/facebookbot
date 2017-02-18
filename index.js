@@ -20,9 +20,6 @@ app.use(bodyParser.json())
 
 // Index route
 app.get('/', function (req, res) {
-	var json = JSON.stringify(links, null, 4);
-	fs.writeFile('users.json', json, 'utf8', function(data){console.log(data);});
-
 	res.send(links);
 })
 
@@ -159,38 +156,7 @@ function sendGenericMessage(sender) {
 function askLincolnEvents(sender) {
 	let messageData = {
 		"text":"What club events in Lincoln would you like me to remind you for? 🙌🙌",
-		"quick_replies":[
-			{
-				"content_type":"text",
-				"title":"Superbull",
-				"payload":"USER_EVENT_LINCOLN_SUPERBULL"
-			},
-			{
-				"content_type":"text",
-				"title":"Union",
-				"payload":"USER_EVENT_LINCOLN_UNION"
-			},
-			{
-				"content_type":"text",
-				"title":"Entourage",
-				"payload":"USER_EVENT_LINCOLN_ENTROURAGE"
-			},
-			{
-				"content_type":"text",
-				"title":"Quack",
-				"payload":"USER_EVENT_LINCOLN_QUACK"
-			},
-			{
-				"content_type":"text",
-				"title":"Lovedough",
-				"payload":"USER_EVENT_LINCOLN_LOVEDOUGH"
-			},
-			{
-				"content_type":"text",
-				"title":"All",
-				"payload":"USER_EVENT_LINCOLN_ALL"
-			}
-		]
+		"quick_replies":[]
 	}
 	let links = JSON.parse(fs.readFileSync('links.json', 'utf8'));
 	for(var i = 0; i < links.length; i++) {
