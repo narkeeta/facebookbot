@@ -19,7 +19,7 @@ app.use(bodyParser.json())
 // Index route
 app.get('/', function (req, res) {
 	
-	res.send(require( "./links.json" ) );
+	res.send(bodyParser.json());
 })
 
 // for Facebook verification
