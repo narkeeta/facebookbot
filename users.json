@@ -1,8 +1,6 @@
 {
-	"13431412" : ["asdfasdf","asdfas","superbowl"],
-	"13431412" : ["asdfasdf","asdfas","superbowl"],
-	"13431412" : ["asdfasdf","asdfas","superbowl"],
-	"13431412" : ["asdfasdf","asdfas","superbowl"],
-	"13431412" : ["asdfasdf","asdfas","superbowl"],
-	"13431412" : ["asdfasdf","asdfas","superbowl"]
+	"13431412": {
+		"Lincoln": ["superbowl", "red"],
+		"Sheffield": ["superbowl", "red"]
+	}
 }

@@ -57,20 +57,25 @@ app.post('/webhook/', function (req, res) {
 		let sender = event.sender.id;
 		if (event.message && event.message.text) {
 			let text = event.message.text;
-			let cities = [];
-			for (var key in links) {
-				if (links.hasOwnProperty(key)) {
-					cities.push(key);
-				}
-			}
-			if (cities.indexOf(text) !== -1) {
-				let payload = event.message.quick_reply.payload;
+			let payload = event.message.quick_reply.payload;
+			if (links.hasOwnProperty(text)) {
 				if (payload === 'CITY_GIVEN') {
 					askCityEvents(sender, text)
 				}
 				continue
 			}
-			sendStarterButtons(sender)
+			if (links.hasOwnProperty(payload)) {
+				for (event in links.payload) {
+					if (links.payload.hasOwnProperty(event)) {
+						if (links.payload.event.name === text) {
+							sendTextMessage(sender, "Awesome we'll remind you soon to get a ticket for that event!")
+						}
+					}
+				}
+			}
+			else {
+				sendStarterButtons(sender)
+			}
 		}
 		if (event.postback) {
 			let text = JSON.stringify(event.postback)
@@ -120,22 +125,24 @@ function askCityEvents(sender, city) {
 	}
 	for(var i = 0; i < links[city].length; i++) {
 		if (users.hasOwnProperty(sender)) {
-			if (users.sender.indexOf(links[city][i].name) !== -1) {
-			}
-			else {
-				var obj = {
-					"content_type":"text",
-					"title":links[city][i].name,
-					"payload":"USER_EVENT_"+city+"_" + links[city][i].name
-				};
-				messageData.quick_replies[i] = obj;	
+			if (users.sender.hasOwnProperty(city)) {
+				if (users.sender.city.indexOf(links[city][i].name) !== -1) {
+				}
+				else {
+					var obj = {
+						"content_type":"text",
+						"title":links[city][i].name,
+						"payload":"USER_EVENT_"+city+"_" + links[city][i].name
+					};
+					messageData.quick_replies[i] = obj;	
+				}
 			}
 		}
 		else {
 			var obj = {
 				"content_type":"text",
 				"title":links[city][i].name,
-				"payload":"USER_EVENT_"+city+"_" + links[city][i].name
+				"payload":city
 			};
 			messageData.quick_replies[i] = obj;
 		}
