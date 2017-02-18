@@ -17,8 +17,9 @@ app.use(bodyParser.json())
 
 // Index route
 app.get('/', function (req, res) {
-res.send('Hello world, I am a chatter bots')
-	res.send('Hello world, I am a chat bots')
+	var file_content = fs.readFileSync('./links.json');
+	var links = JSON.parse(file_content);
+	res.send(links)
 })
 
 // for Facebook verification
