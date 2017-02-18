@@ -5,6 +5,7 @@ const bodyParser = require('body-parser')
 const request = require('request')
 const app = express()
 
+
 app.set('port', (process.env.PORT || 5000))
 
 // Process application/x-www-form-urlencoded
@@ -17,10 +18,8 @@ app.use(bodyParser.json())
 
 // Index route
 app.get('/', function (req, res) {
-	var fs = require('fs');
-	var file_content = fs.readFileSync('links.json');
-	var links = JSON.parse(file_content);
-	res.send("helo")
+	
+	res.send(require( "./links.json" ) );
 })
 
 // for Facebook verification
