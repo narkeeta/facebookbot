@@ -1,5 +1,4 @@
 {
-
 	"Lincoln" : [
 		{
 			"name": "hi",
@@ -28,5 +27,5 @@
 			"hour": "2013-05-05 23:45",
 			"link": "hello2@email.se"
 		}
-	],
+	]
 }
