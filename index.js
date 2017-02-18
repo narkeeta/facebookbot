@@ -23,12 +23,10 @@ app.use(bodyParser.json())
 // Index route
 app.get('/', function (req, res) {
 	let cities = [];
-	for (var key in links) {
-		if (links.hasOwnProperty(key)) {
-			cities.push(key);
-		}
+	for (var xxxx = 0; xxxx < links.Lincoln.length; xxxx++) {
+		console.log(links.Lincoln[xxxx].name)
 	}
-	res.send(links['Lincoln'][1]);
+	res.send('Lincoln');
 })
 
 // for Facebook verification
@@ -65,11 +63,9 @@ app.post('/webhook/', function (req, res) {
 				continue
 			}
 			if (links.hasOwnProperty(payload)) {
-				for (event in links.payload) {
-					if (links.payload.hasOwnProperty(event)) {
-						if (links.payload.event.name === text) {
-							sendTextMessage(sender, "Awesome we'll remind you soon to get a ticket for that event!")
-						}
+				for (var a = 0; a < links.payload.length; a++) {
+					if (links.payload[a].name === text) {
+						sendTextMessage(sender, "Awesome we'll remind you soon to get a ticket for that event!")
 					}
 				}
 				continue
