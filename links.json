@@ -1,93 +1,28 @@
 "Lincoln": {
 	"Supbowl": {
-		"dayofweek": "Sample Konfabulator Widget",
-		"link": "main_window",
+		"dayofweek": "1",
+		"hour": "12"
+		"link": "https://google.com",
 	},
-	"Supbowl": {
-		"dayofweek": "Sample Konfabulator Widget",
-		"link": "main_window",
+	"banana": {
+		"dayofweek": "1",
+		"hour": "12"
+		"link": "https://google.com",
 	},
-	"Supbowl": {
-		"dayofweek": "Sample Konfabulator Widget",
-		"link": "main_window",
+	"red": {
+		"dayofweek": "1",
+		"hour": "12"
+		"link": "https://google.com",
 	},
-	"Supbowl": {
-		"dayofweek": "Sample Konfabulator Widget",
-		"link": "main_window",
+	"blue": {
+		"dayofweek": "1",
+		"hour": "12"
+		"link": "https://google.com",
 	},
-	"Supbowl": {
-		"dayofweek": "Sample Konfabulator Widget",
-		"link": "main_window",
-	},
-	"Supbowl": {
-		"dayofweek": "Sample Konfabulator Widget",
-		"link": "main_window",
-	},
-	"Supbowl": {
-		"dayofweek": "Sample Konfabulator Widget",
-		"link": "main_window",
-	},
-	"Supbowl": {
-		"dayofweek": "Sample Konfabulator Widget",
-		"link": "main_window",
-	},
-	"Supbowl": {
-		"dayofweek": "Sample Konfabulator Widget",
-		"link": "main_window",
-	},
-	"Supbowl": {
-		"dayofweek": "Sample Konfabulator Widget",
-		"link": "main_window",
-	},
-	"Supbowl": {
-		"dayofweek": "Sample Konfabulator Widget",
-		"link": "main_window",
-	},
-},
-"Sheffild": {
-	"Supbowl": {
-		"dayofweek": "Sample Konfabulator Widget",
-		"link": "main_window",
-	},
-	"Supbowl": {
-		"dayofweek": "Sample Konfabulator Widget",
-		"link": "main_window",
-	},
-	"Supbowl": {
-		"dayofweek": "Sample Konfabulator Widget",
-		"link": "main_window",
-	},
-	"Supbowl": {
-		"dayofweek": "Sample Konfabulator Widget",
-		"link": "main_window",
-	},
-	"Supbowl": {
-		"dayofweek": "Sample Konfabulator Widget",
-		"link": "main_window",
-	},
-	"Supbowl": {
-		"dayofweek": "Sample Konfabulator Widget",
-		"link": "main_window",
-	},
-	"Supbowl": {
-		"dayofweek": "Sample Konfabulator Widget",
-		"link": "main_window",
-	},
-	"Supbowl": {
-		"dayofweek": "Sample Konfabulator Widget",
-		"link": "main_window",
-	},
-	"Supbowl": {
-		"dayofweek": "Sample Konfabulator Widget",
-		"link": "main_window",
-	},
-	"Supbowl": {
-		"dayofweek": "Sample Konfabulator Widget",
-		"link": "main_window",
-	},
-	"Supbowl": {
-		"dayofweek": "Sample Konfabulator Widget",
-		"link": "main_window",
+	"green": {
+		"dayofweek": "1",
+		"hour": "12"
+		"link": "https://google.com",
 	},
 }
 	
