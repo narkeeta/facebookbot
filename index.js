@@ -49,13 +49,15 @@ app.post('/webhook/', function (req, res) {
 		let sender = event.sender.id;
 		if (event.message && event.message.text) {
 			let text = event.message.text
-			if (text === 'Lincoln') {
-				let payload = event.message.quick_reply.payload;
-				if (payload === 'USER_CHOSE_LINCOLN') {
-					sendTextMessage(sender, "I do love a good party in Lincoln 💃💃💃", token)
-					askLincolnEvents(sender)
+			for (var key in links)
+			{
+				if (text === key) {
+					let payload = event.message.quick_reply.payload;
+					if (payload === 'CITY_GIVEN') {
+						askCityEvents(sender, key)
+					}
+					continue
 				}
-				continue
 			}
 			sendStarterButtons(sender)
 		}
@@ -153,13 +155,12 @@ function sendGenericMessage(sender) {
 	})
 }   
 
-function askLincolnEvents(sender) {
+function askCityEvents(sender, city) {
 	let messageData = {
-		"text":"What club events in Lincoln would you like me to remind you for? 🙌🙌",
+		"text":"What club events in "+city+" would you like me to remind you for? 🙌🙌",
 		"quick_replies":[]
 	}
-	let links = JSON.parse(fs.readFileSync('links.json', 'utf8'));
-	for(var i = 0; i < links.length; i++) {
+	for(var i = 0; i < links[city].length; i++) {
 		var obj = {
 			"content_type":"text",
 			"title":links[i].name,
@@ -196,12 +197,12 @@ function sendStarterButtons(sender) {
 			{
 				"content_type":"text",
 				"title":"Lincoln",
-				"payload":"USER_CHOSE_LINCOLN"
+				"payload":"CITY_GIVEN"
 			},
 			{
 				"content_type":"text",
 				"title":"Sheffield",
-				"payload":"USER_CHOSE_SHEFFIELD"
+				"payload":"CITY_GIVEN"
 			}
 		]
 	}
