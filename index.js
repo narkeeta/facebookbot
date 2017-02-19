@@ -24,18 +24,12 @@ app.use(bodyParser.json())
 // Index route
 app.get('/', function (req, res) {
 	let senddata;
-	var arr = [1,2,3];
-
-	var multi = client.multi()
-
-	for (var i=0; i<arr.length; i++) {
-		multi.rpush('testlist', arr[i]);
-	}
-
-	multi.exec(function(errors, results) {
-		console.log(results);
-	})
-
+	client.sadd(['tags', 'angularjs', 'backbonejs', 'emberjs'], function(err, reply) {
+		console.log(reply); // 3
+	});
+	client.smembers('tags', function(err, reply) {
+		console.log(reply);
+	});
 
 	client.keys('*', function (err, keys) {
 		if (err) return console.log(err);
