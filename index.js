@@ -27,9 +27,12 @@ app.get('/', function (req, res) {
 	client.keys('*', function (err, keys) {
 		if (err) return console.log(err);
 		console.dir(keys);
+		for(var i = 0, len = keys.length; i < len; i++) {
+  
 		client.del(keys[i], function(err, reply) {
     		console.log(reply);
 		});
+		}
 	}); 
 	client.sadd(['tags', 'angularjs', 'backbonejs', 'emberjs'], function(err, reply) {
 		console.log(reply); // 3
