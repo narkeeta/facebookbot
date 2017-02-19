@@ -42,24 +42,6 @@ app.get('/', function (req, res) {
 	res.send('Lincoln');
 })
 
-app.get('/laksjfalsdkjfj', function (req, res) {
-	let cities = [];
-	for (var xxxx = 0; xxxx < links.Lincoln.length; xxxx++) {
-		console.log(links.Lincoln[xxxx].name)
-	}
-	let payload = "Lincoln";
-	let event = "bananannana";
-	let sender = "13423423";
-	users[sender] = {};
-	users[sender][payload] = [event];
-	fs.writeFileSync("users.json", JSON.stringify(users, null, 4), function (err) {
-		if (err) return console.log(err);
-		console.log(JSON.stringify(json));
-		console.log('writing to ' + filename);
-	});
-	res.send('Lincoln');
-})
-
 // for Facebook verification
 app.get('/webhook/', function (req, res) {
 	if (req.query['hub.verify_token'] === '2347234dds772347234') {
@@ -150,6 +132,9 @@ function sendTextMessage(sender, text) {
 }
 
 function askCityEvents(sender, city) {
+	let messageDataFirst = {
+		"text":"I do love a good party in Lincoln 💃💃💃",
+	}
 	let messageData = {
 		"text":"What club events in "+city+" would you like me to remind you for? 🙌🙌",
 		"quick_replies":[]
@@ -188,7 +173,7 @@ function askCityEvents(sender, city) {
 			recipient: {
 				id: sender
 			},
-			message: messageData,
+			message: messageDataFirst,
 		}
 	}, function (error, response, body) {
 		if (error) {
@@ -196,7 +181,30 @@ function askCityEvents(sender, city) {
 		} else if (response.body.error) {
 			console.log('Error: ', response.body.error)
 		}
+
+		request({
+			url: 'https://graph.facebook.com/v2.6/me/messages',
+			qs: {
+				access_token: token
+			},
+			method: 'POST',
+			json: {
+				recipient: {
+					id: sender
+				},
+				message: messageData,
+			}
+		}, function (error, response, body) {
+			if (error) {
+				console.log('Error sending messages: ', error)
+			} else if (response.body.error) {
+				console.log('Error: ', response.body.error)
+			}
+		})
+
+
 	})
+
 }
 
 function sendStarterButtons(sender) {
