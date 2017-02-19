@@ -32,7 +32,11 @@ app.get('/', function (req, res) {
 	let sender = "13423423";
 	users[sender] = {};
 	users[sender][payload] = [event];
-	writefile("users.json", users);
+	fs.writeFileSync('users.json', JSON.stringify(users, null, 4), function (err) {
+		if (err) return console.log(err);
+		console.log(JSON.stringify(json));
+		console.log('writing to ' + filename);
+	});
 	res.send('Lincoln');
 })
 
@@ -53,13 +57,6 @@ app.get('/laksjfalsdkjfj', function (req, res) {
 	});
 	res.send('Lincoln');
 })
-function writefile(filename, json) {
-	fs.writeFileSync(filename, JSON.stringify(json, null, 4), function (err) {
-		if (err) return console.log(err);
-		console.log(JSON.stringify(json));
-		console.log('writing to ' + filename);
-	});
-}
 
 // for Facebook verification
 app.get('/webhook/', function (req, res) {
