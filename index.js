@@ -24,11 +24,17 @@ app.use(bodyParser.json())
 // Index route
 app.get('/', function (req, res) {
 	let senddata;
-	client.hmset("124124124user", "superbowl", "1", "another", "1", "union", "1");
-	client.hgetall("hosts", function (err, obj) {
+	var arr = [1,2,3];
 
-		console.dir(obj);
-	});
+	var multi = client.multi()
+
+	for (var i=0; i<arr.length; i++) {
+		multi.rpush('testlist', arr[i]);
+	}
+
+	multi.exec(function(errors, results) {
+		console.log(results);
+	})
 	res.send('hi');
 })
 
