@@ -7,7 +7,6 @@ const schedule = require('node-schedule')
 const fs = require('fs')
 const links =  JSON.parse(fs.readFileSync('links.json', 'utf8'))
 const users =  JSON.parse(fs.readFileSync('users.json', 'utf8'))
-var client = require('redis').createClient(process.env.REDIS_URL);
 const app = express()
 
 
@@ -23,6 +22,9 @@ app.use(bodyParser.json())
 
 // Index route
 app.get('/', function (req, res) {
+	var j = schedule.scheduleJob({hour: 19, minute: 54, dayOfWeek: 6}, function(){
+		console.log('Time for tea!');
+	});
 	let cities = [];
 	for (var xxxx = 0; xxxx < links.Lincoln.length; xxxx++) {
 		console.log(links.Lincoln[xxxx].name)
