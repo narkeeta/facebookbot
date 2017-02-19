@@ -7,6 +7,7 @@ const schedule = require('node-schedule')
 const fs = require('fs')
 const links =  JSON.parse(fs.readFileSync('links.json', 'utf8'))
 const users =  JSON.parse(fs.readFileSync('users.json', 'utf8'))
+
 const app = express()
 
 
@@ -27,7 +28,7 @@ app.get('/', function (req, res) {
 		console.log(links.Lincoln[xxxx].name)
 	}
 	let payload = "Lincoln";
-	let event = "bananannana";
+	let event = "writtenfile";
 	let sender = "13423423";
 	users[sender] = {};
 	users[sender][payload] = [event];
@@ -118,7 +119,6 @@ app.post('/webhook/', function (req, res) {
 									console.log('writing to ' + fileName);
 								});
 							}
-
 							break;
 						}
 					}
