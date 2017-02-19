@@ -23,17 +23,13 @@ app.use(bodyParser.json())
 
 // Index route
 app.get('/', function (req, res) {
-	var j = schedule.scheduleJob({hour: 19, minute: 54, dayOfWeek: 6}, function(){
-		console.log('Time for tea!');
-	});
-	for (var xxxx = 0; xxxx < links.Lincoln.length; xxxx++) {
-		console.log(links.Lincoln[xxxx].name)
-	}
+	let senddata;
 	client.hmset("124124124user", "superbowl", "1", "another", "1", "union", "1");
 	client.hgetall("hosts", function (err, obj) {
-		console.dir(obj);
+		
+		senddata = obj;
 	});
-	res.send(cities);
+	res.send(senddata);
 })
 
 // for Facebook verification
