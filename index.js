@@ -84,7 +84,26 @@ app.post('/webhook/', function (req, res) {
 		let sender = event.sender.id;
 		if (event.message && event.message.text) {
 			let text = event.message.text;
-			
+			if (event.message.quick_reply && event.message.quick_reply.payload) {
+				let payload = event.message.quick_reply.payload;
+				if (links.hasOwnProperty(text)) {
+					if (payload === 'CITY_GIVEN') {
+						askCityEvents(sender, text)
+					}
+					continue
+				}
+				if (links.hasOwnProperty(payload)) {
+					for (var a = 0; a < links[payload].length; a++) {
+						if (links[payload][a].name === text) {
+							let days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saterday"];
+							let theirday = days[links[payload][a].day];
+							sendTextMessage(sender, "Awesome we'll remind you "+theirday+" to get a ticket for the "+links[payload][a].name+"  event! 😃");
+							break;
+						}
+					}
+					continue
+				}
+			}
 			sendStarterButtons(sender)
 		}
 		if (event.postback) {
