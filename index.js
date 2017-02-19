@@ -7,6 +7,7 @@ const schedule = require('node-schedule')
 const fs = require('fs')
 const links =  JSON.parse(fs.readFileSync('links.json', 'utf8'))
 const users =  JSON.parse(fs.readFileSync('users.json', 'utf8'))
+const client = require('redis').createClient(process.env.REDIS_URL);
 const app = express()
 
 
@@ -25,21 +26,14 @@ app.get('/', function (req, res) {
 	var j = schedule.scheduleJob({hour: 19, minute: 54, dayOfWeek: 6}, function(){
 		console.log('Time for tea!');
 	});
-	let cities = [];
 	for (var xxxx = 0; xxxx < links.Lincoln.length; xxxx++) {
 		console.log(links.Lincoln[xxxx].name)
 	}
-	let payload = "Lincoln";
-	let event = "writtenfile";
-	let sender = "13423423";
-	users[sender] = {};
-	users[sender][payload] = [event];
-	fs.writeFileSync('users.json', JSON.stringify(users, null, 4), function (err) {
-		if (err) return console.log(err);
-		console.log(JSON.stringify(json));
-		console.log('writing to ' + filename);
+	client.hmset("124124124user", "superbowl", "1", "another", "1", "union", "1");
+	client.hgetall("hosts", function (err, obj) {
+		console.dir(obj);
 	});
-	res.send('Lincoln');
+	res.send(cities);
 })
 
 // for Facebook verification
@@ -72,7 +66,7 @@ app.post('/webhook/', function (req, res) {
 				let payload = event.message.quick_reply.payload;
 				if (links.hasOwnProperty(text)) {
 					if (payload === 'CITY_GIVEN') {
-						askCityEvents(sender, text)
+						askCityEvents(sender, text, "I do love a good party in Lincoln 💃💃💃")
 					}
 					continue
 				}
@@ -81,7 +75,11 @@ app.post('/webhook/', function (req, res) {
 						if (links[payload][a].name === text) {
 							let days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saterday"];
 							let theirday = days[links[payload][a].day];
-							sendTextMessage(sender, "Awesome we'll remind you "+theirday+" to get a ticket for the "+links[payload][a].name+"  event! 😃");
+							redisClient.rpush([sender,links[payload][a],"nodejs","go"],function(err,reply) {
+								console.log(err);
+								console.log(reply);
+							});
+							askCityEventsTwo(sender, payload, "Fab, I'll remind you "+theirday+" to get a ticket for the "+links[payload][a].name+"  event! 😃");
 							break;
 						}
 					}
@@ -131,12 +129,88 @@ function sendTextMessage(sender, text) {
 	})
 }
 
-function askCityEvents(sender, city) {
+function askCityEvents(sender, city, first) {
 	let messageDataFirst = {
-		"text":"I do love a good party in Lincoln 💃💃💃",
+		"text":first,
 	}
 	let messageData = {
 		"text":"What club events in "+city+" would you like me to remind you for? 🙌🙌",
+		"quick_replies":[]
+	}
+	for(var i = 0; i < links[city].length; i++) {
+		if (users.hasOwnProperty(sender)) {
+			if (users.sender.hasOwnProperty(city)) {
+				if (users.sender.city.indexOf(links[city][i].name) !== -1) {
+				}
+				else {
+					var obj = {
+						"content_type":"text",
+						"title":links[city][i].name,
+						"payload":"USER_EVENT_"+city+"_" + links[city][i].name
+					};
+					messageData.quick_replies[i] = obj;	
+				}
+			}
+		}
+		else {
+			var obj = {
+				"content_type":"text",
+				"title":links[city][i].name,
+				"payload":city
+			};
+			messageData.quick_replies[i] = obj;
+		}
+	}
+	request({
+		url: 'https://graph.facebook.com/v2.6/me/messages',
+		qs: {
+			access_token: token
+		},
+		method: 'POST',
+		json: {
+			recipient: {
+				id: sender
+			},
+			message: messageDataFirst,
+		}
+	}, function (error, response, body) {
+		if (error) {
+			console.log('Error sending messages: ', error)
+		} else if (response.body.error) {
+			console.log('Error: ', response.body.error)
+		}
+
+		request({
+			url: 'https://graph.facebook.com/v2.6/me/messages',
+			qs: {
+				access_token: token
+			},
+			method: 'POST',
+			json: {
+				recipient: {
+					id: sender
+				},
+				message: messageData,
+			}
+		}, function (error, response, body) {
+			if (error) {
+				console.log('Error sending messages: ', error)
+			} else if (response.body.error) {
+				console.log('Error: ', response.body.error)
+			}
+		})
+
+
+	})
+
+}
+
+function askCityEventsTwo(sender, city, first) {
+	let messageDataFirst = {
+		"text":first,
+	}
+	let messageData = {
+		"text":"If you're a true sessioner I'm sure there might be other events I can remind you for?😜",
 		"quick_replies":[]
 	}
 	for(var i = 0; i < links[city].length; i++) {
