@@ -30,7 +30,7 @@ app.get('/', function (req, res) {
 		for(var i = 0, len = keys.length; i < len; i++) {
 		}
 	}); 
-	client.smembers('tags', function(err, reply) {
+	client.smembers('1417370371629299', function(err, reply) {
 		console.log(reply);
 	});
 	res.send('hi');
