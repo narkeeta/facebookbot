@@ -24,17 +24,19 @@ app.use(bodyParser.json())
 // Index route
 app.get('/', function (req, res) {
 	let senddata;
+	client.keys('*', function (err, keys) {
+		if (err) return console.log(err);
+		console.dir(keys);
+		client.del(keys[i], function(err, reply) {
+    		console.log(reply);
+		});
+	}); 
 	client.sadd(['tags', 'angularjs', 'backbonejs', 'emberjs'], function(err, reply) {
 		console.log(reply); // 3
 	});
 	client.smembers('tags', function(err, reply) {
 		console.log(reply);
 	});
-
-	client.keys('*', function (err, keys) {
-		if (err) return console.log(err);
-		console.dir(keys);
-	}); 
 	res.send('hi');
 })
 
