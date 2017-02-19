@@ -24,11 +24,11 @@ app.use(bodyParser.json())
 // Index route
 app.get('/', function (req, res) {
 	let senddata;
-	client.set("foo", "bar", redis.print);
-client.get("foo", function (err, reply) {
-    if (err) throw err;
-    console.log(reply.toString());
-});
+	client.set("foo", "bar");
+	client.get("foo", function (err, reply) {
+		if (err) throw err;
+		console.log(reply.toString());
+	});
 	res.send('hi');
 })
 
