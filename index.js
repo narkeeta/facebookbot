@@ -35,6 +35,12 @@ app.get('/', function (req, res) {
 	multi.exec(function(errors, results) {
 		console.log(results);
 	})
+
+
+	client.keys('*', function (err, keys) {
+		if (err) return console.log(err);
+		console.dir(keys);
+	}); 
 	res.send('hi');
 })
 
