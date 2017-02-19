@@ -24,10 +24,11 @@ app.use(bodyParser.json())
 // Index route
 app.get('/', function (req, res) {
 	let senddata;
-	client.hmset("124124124user", "superbowl", "1", "another", "1", "union", "1");
-	client.hgetall("hosts", function (err, obj) {
-		console.dir(obj);
-	});
+	client.set("foo", "bar", redis.print);
+client.get("foo", function (err, reply) {
+    if (err) throw err;
+    console.log(reply.toString());
+});
 	res.send('hi');
 })
 
