@@ -27,7 +27,7 @@ app.get('/', function (req, res) {
 	client.hmset("124124124user", "superbowl", "1", "another", "1", "union", "1");
 	client.hgetall("hosts", function (err, obj) {
 		console.log(obj);
-		senddata = obj;
+		res.send(obj);
 	});
 	res.send('hi');
 })
