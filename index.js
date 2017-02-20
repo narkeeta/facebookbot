@@ -64,17 +64,12 @@ app.post('/webhook/', function (req, res) {
 		let sender = event.sender.id;
 		if (event.message && event.message.text) {
 			let text = event.message.text;
-			if (text === "Unsubscribe") {
-				
-				client.del(sender, function(err, reply) {
-					console.log(reply);
-					console.log("YOU DELETED THIS USER, I HOPE YOU WANTED TOO");
-					sendTextMessage(sender, "Okay, You're unsubscibed from your events, feel free to resubscribe if you want more updates!")
-				});
-				continue
-			}
 			if (event.message.quick_reply && event.message.quick_reply.payload) {
 				let payload = event.message.quick_reply.payload;
+				if (payload === "user_wants_to_go_home") {
+					sendTextMessage(sender, "Fair enough, if you fancy being reminded for more events in the future just come back and select them👌 Have an amazing night and don't do anything I wouldn't do! 🙈")
+					continue
+				}
 				if (links.hasOwnProperty(text)) {
 					if (payload === 'CITY_GIVEN') {
 						askCityEvents(sender, text, "I do love a good party in "+text+" 💃💃💃", "What club events in "+text+" would you like me to remind you for? 🙌🙌")
@@ -101,7 +96,7 @@ app.post('/webhook/', function (req, res) {
 		if (event.postback) {
 			if (event.postback.payload === "DEVELOPER_DEFINED_PAYLOAD_FOR_START_ORDER") {
 				client.del(sender, function(err, reply) {
-    				console.log(reply);
+					console.log(reply);
 					sendTextMessage(sender, "Okay! You've been unsubscribed from our service, I hope you come back and use us later!")
 				});
 				continue
@@ -153,8 +148,15 @@ function askCityEvents(sender, city, first, second) {
 		"text":first,
 	}
 	let messageData = {
-		"text":"What club events in "+city+" would you like me to remind you for? 🙌🙌",
-		"quick_replies":[]
+		"text":second,
+		"quick_replies":[
+			{
+				"content_type":"text",
+				"title":'No Thanks',
+				"payload":'user_wants_to_go_home'
+			}
+
+		]
 	}
 
 
