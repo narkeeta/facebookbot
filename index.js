@@ -24,6 +24,7 @@ app.use(bodyParser.json())
 
 // Index route
 app.get('/', function (req, res) {
+	setmenu();
 	var j = schedule.scheduleJob({hour: 19}, function(){
 
 		var d = new Date();
