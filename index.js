@@ -24,13 +24,10 @@ app.use(bodyParser.json())
 
 // Index route
 app.get('/', function (req, res) {
-	var d = new Date();
-	var c = new Date();
-	var day = d.getUTCHours();
-	var hours = c.get();
+	
 	console.log(day);
 	console.log(hour);
-	var j = schedule.scheduleJob({minute: 54}, function(){
+	var j = schedule.scheduleJob({minute: 55}, function(){
 		var d = new Date();
 		var day = d.getDay();
 		var hour = d.getHour();
