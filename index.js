@@ -7,7 +7,7 @@ const schedule = require('node-schedule')
 const fs = require('fs')
 const links =  JSON.parse(fs.readFileSync('links.json', 'utf8'))
 const users =  JSON.parse(fs.readFileSync('users.json', 'utf8'))
-const client = require('redis').createClient("redis://h:pf774a537a5b827b61f980e643fdbc4172140d0e8dc9d1192337740b91e8f52f8@ec2-34-194-51-203.compute-1.amazonaws.com:29559");
+const client = require('redis').createClient("redis://h:pf774a537a5b827b61f980e643fdbc4172140d0e8dc9d1192337740b91e8f52f8@ec2-34-194-51-203.compute-1.amazonaws.com:29559")
 const app = express()
 
 
@@ -101,11 +101,7 @@ app.post('/webhook/', function (req, res) {
 		if (event.postback) {
 			if (event.postback.payload === "DEVELOPER_DEFINED_PAYLOAD_FOR_UNSUB") {
 				console.log(sender);
-				client.del(sender, function(err, reply) {
-					console.log(reply);
-					console.log("YOU DELETED THIS USER, I HOPE YOU WANTED TOO");
-					sendTextMessage(sender, "Okay, You're unsubscibed from your events, feel free to resubscribe if you want more updates!")
-				});
+				sendTextMessage(sender, "Okay, You're unsubscibed from your events, feel free to resubscribe if you want more updates!")
 			}
 			if (event.postback.payload === "DEVELOPER_DEFINED_PAYLOAD_FOR_HELP") {
 				sendStarterButtons(sender);
