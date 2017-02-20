@@ -76,7 +76,7 @@ app.post('/webhook/', function (req, res) {
 						if (links[payload][a].name === text) {
 							let days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saterday"];
 							let theirday = days[links[payload][a].day];
-							client.sadd([sender, links[payload][a].name ], function(err, reply) {
+							client.sadd([sender, payload+"-"+links[payload][a].name ], function(err, reply) {
 								console.log(reply); // 3
 							});
 							askCityEvents(sender, payload, "Fab, I'll remind you "+theirday+" to get a ticket for the "+links[payload][a].name+"  event! 😃", "If you're a true sessioner I'm sure there might be other events I can remind you for?😜");
@@ -146,7 +146,7 @@ function askCityEvents(sender, city, first, second) {
 				for(var i = 0; i < links[city].length; i++) {
 					console.log(links[city][i]);
 					console.log(thedata);
-					if (thedata.indexOf(links[city][i].name) === -1) {
+					if (thedata.indexOf(city+"-"+links[city][i].name) === -1) {
 						let obj = {
 							"content_type":"text",
 							"title":links[city][i].name,
