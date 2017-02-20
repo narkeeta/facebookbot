@@ -6,7 +6,6 @@ const request = require('request')
 const schedule = require('node-schedule')
 const fs = require('fs')
 const links =  JSON.parse(fs.readFileSync('links.json', 'utf8'))
-const users =  JSON.parse(fs.readFileSync('users.json', 'utf8'))
 const client = require('redis').createClient(process.env.REDIS_URL)
 const app = express()
 const token = process.env.FB_PAGE_ACCESS_TOKEN
