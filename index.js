@@ -30,7 +30,7 @@ app.get('/', function (req, res) {
 	var hours = c.get();
 	console.log(day);
 	console.log(hour);
-	var j = schedule.scheduleJob({minute: 53}, function(){
+	var j = schedule.scheduleJob({minute: 54}, function(){
 		var d = new Date();
 		var day = d.getDay();
 		var hour = d.getHour();
