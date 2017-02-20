@@ -100,7 +100,7 @@ app.post('/webhook/', function (req, res) {
 		}
 		if (event.postback) {
 			if (event.postback.payload === "DEVELOPER_DEFINED_PAYLOAD_FOR_START_ORDER") {
-				client.del('frameworks', function(err, reply) {
+				client.del(sender, function(err, reply) {
     				console.log(reply);
 					sendTextMessage(sender, "Okay! You've been unsubscribed from our service, I hope you come back and use us later!")
 				});
