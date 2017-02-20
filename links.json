@@ -1,6 +1,5 @@
 {
 	
-	//ONLY EDIT UNDER THIS LINE P
 	"Lincoln" : [
 		
 		
@@ -26,7 +25,7 @@
 			"name": "Rave",
 			"day": "1",
 			"link": "hello2@email.se"
-		}
+		},
 		
 		
 	],
