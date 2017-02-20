@@ -100,15 +100,8 @@ app.post('/webhook/', function (req, res) {
 			sendStarterButtons(sender)
 		}
 		if (event.postback) {
-			if (event.postback.payload === "remove_from_database") {
-				sendStarterButtons(sender);
-				console.log("unsubbbbbbb");
-				continue
-			}
-			if (event.postback.payload === "DEVELOPER_DEFINED_PAYLOAD_FOR_HELP") {
-				sendStarterButtons(sender);
-				continue
-			}
+			let text = JSON.stringify(event.postback)
+			sendTextMessage(sender, "Postback received: " + text.substring(0, 200), token)
 			continue
 		}
 	}
