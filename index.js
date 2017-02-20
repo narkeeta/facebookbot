@@ -29,7 +29,7 @@ var d = new Date();
 		var hour = d.getHours();
 		console.log(day);
 		console.log(hour);
-	var j = schedule.scheduleJob({minute: 58}, function(){
+	var j = schedule.scheduleJob({minute: 59}, function(){
 		var d = new Date();
 		var day = d.getDay();
 		var hour = d.getHour();
