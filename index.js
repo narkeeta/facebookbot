@@ -137,8 +137,8 @@ function askCityEvents(sender, city, first) {
 		"quick_replies":[]
 	}
 	
-	let keyval = ""+sender;
-	client.exists(keyval, function(err, reply) {
+
+	client.exists(sender, function(err, reply) {
 		if (reply === 1) {
 			client.smembers(sender, function(err, reply) {
 				console.log("client found sorting links");
