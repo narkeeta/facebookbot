@@ -106,11 +106,9 @@ app.post('/webhook/', function (req, res) {
 					console.log("YOU DELETED THIS USER, I HOPE YOU WANTED TOO");
 					sendTextMessage(sender, "Okay, You're unsubscibed from your events, feel free to resubscribe if you want more updates!")
 				});
-				continue
 			}
 			if (event.postback.payload === "DEVELOPER_DEFINED_PAYLOAD_FOR_HELP") {
 				sendStarterButtons(sender);
-				continue
 			}
 			continue
 		}
