@@ -356,7 +356,7 @@ function setmenu() {
 		]
 	}
 	request({
-		url: 'https://graph.facebook.com/v2.6/me/thread_settings?access_token=PAGE_ACCESS_TOKEN',
+		url: 'https://graph.facebook.com/v2.6/me/thread_settings',
 		qs: {
 			access_token: token
 		},
