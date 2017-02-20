@@ -25,12 +25,12 @@ app.use(bodyParser.json())
 // Index route
 app.get('/', function (req, res) {
 	
-	var j = schedule.scheduleJob({minute: 57}, function(){
+	var j = schedule.scheduleJob({minute: 59}, function(){
 		var d = new Date();
 		var day = d.getDay()
 		console.log('Time for tea!');
 		for (var city in links) {
-			for(var event in links) {
+			for(var event in links[city]) {
 				if (event.day === day) {
 					client.keys('*', function (err, keys) {
 						if (err) return console.log(err);
