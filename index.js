@@ -9,6 +9,7 @@ const links =  JSON.parse(fs.readFileSync('links.json', 'utf8'))
 const users =  JSON.parse(fs.readFileSync('users.json', 'utf8'))
 const client = require('redis').createClient("redis://h:pf774a537a5b827b61f980e643fdbc4172140d0e8dc9d1192337740b91e8f52f8@ec2-34-194-51-203.compute-1.amazonaws.com:29559")
 const app = express()
+const token = process.env.FB_PAGE_ACCESS_TOKEN
 
 
 app.set('port', (process.env.PORT || 5000))
@@ -110,7 +111,7 @@ app.post('/webhook/', function (req, res) {
 	}
 	res.sendStatus(200)
 })
-const token = process.env.FB_PAGE_ACCESS_TOKEN
+
 
 //
 //
