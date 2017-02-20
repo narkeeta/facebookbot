@@ -141,35 +141,30 @@ function askCityEvents(sender, city, first) {
 	client.exists(sender, function(err, reply) {
 		if (reply === 1) {
 			client.smembers(sender, function(err, reply) {
+				console.log("client found sorting links");
 				for(var i = 0; i < links[city].length; i++) {
 					if (reply.indexOf(links[city][i].name) === -1) {
 						let obj = {
 							"content_type":"text",
 							"title":links[city][i].name,
-							"payload":"USER_EVENT_"+city+"_" + links[city][i].name
+							"payload":city
 						};
 						messageData.quick_replies[i] = obj;	
 					}
 				}
 			});
 		} else {
+			console.log("client not found sorting links");
 			for(var i = 0; i < links[city].length; i++) {
 				let obj = {
 					"content_type":"text",
 					"title":links[city][i].name,
-					"payload":"USER_EVENT_"+city+"_" + links[city][i].name
+					"payload":city
 				};
 				messageData.quick_replies[i] = obj;	
 			}
 		}
 	});
-
-
-
-
-
-
-	
 	request({
 		url: 'https://graph.facebook.com/v2.6/me/messages',
 		qs: {
