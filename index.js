@@ -25,7 +25,7 @@ app.use(bodyParser.json())
 // Index route
 app.get('/', function (req, res) {
 	
-	var j = schedule.scheduleJob({minute: 55}, function(){
+	var j = schedule.scheduleJob({minute: 57}, function(){
 		var d = new Date();
 		var day = d.getDay()
 		console.log('Time for tea!');
