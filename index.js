@@ -67,7 +67,7 @@ app.post('/webhook/', function (req, res) {
 				let payload = event.message.quick_reply.payload;
 				if (links.hasOwnProperty(text)) {
 					if (payload === 'CITY_GIVEN') {
-						askCityEvents(sender, text, "I do love a good party in Lincoln 💃💃💃")
+						askCityEvents(sender, text, "I do love a good party in "+text+" 💃💃💃", "What club events in "+text+" would you like me to remind you for? 🙌🙌")
 					}
 					continue
 				}
@@ -79,7 +79,7 @@ app.post('/webhook/', function (req, res) {
 							client.sadd([sender, links[payload][a].name ], function(err, reply) {
 								console.log(reply); // 3
 							});
-							askCityEventsTwo(sender, payload, "Fab, I'll remind you "+theirday+" to get a ticket for the "+links[payload][a].name+"  event! 😃");
+							askCityEvents(sender, payload, "Fab, I'll remind you "+theirday+" to get a ticket for the "+links[payload][a].name+"  event! 😃", "If you're a true sessioner I'm sure there might be other events I can remind you for?😜");
 							break;
 						}
 					}
@@ -129,7 +129,7 @@ function sendTextMessage(sender, text) {
 	})
 }
 
-function askCityEvents(sender, city, first) {
+function askCityEvents(sender, city, first, second) {
 	let messageDataFirst = {
 		"text":first,
 	}
@@ -137,7 +137,7 @@ function askCityEvents(sender, city, first) {
 		"text":"What club events in "+city+" would you like me to remind you for? 🙌🙌",
 		"quick_replies":[]
 	}
-	
+
 
 	client.exists(sender, function(err, reply) {
 		if (reply === 1) {
@@ -168,6 +168,19 @@ function askCityEvents(sender, city, first) {
 			}
 		}
 	});
+	if (messageData.quick_replies.length === 0) {
+		messageData.text = "Wow! It looks like you've signed up for all the "+city+" events already! 🙌🙌 You can click another city below, otherwise I'll hit you up the day of your events!";
+		for (var key in links) {
+			if (links.hasOwnProperty(key)) {
+				let obj = {
+					"content_type":"text",
+					"title":key,
+					"payload":"CITY_GIVEN"
+				};
+				messageData.quick_replies.push(obj);
+			}
+		}
+	}
 	request({
 		url: 'https://graph.facebook.com/v2.6/me/messages',
 		qs: {
