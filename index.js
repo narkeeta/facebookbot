@@ -24,8 +24,12 @@ app.use(bodyParser.json())
 
 // Index route
 app.get('/', function (req, res) {
-
-	var j = schedule.scheduleJob({minute: 56}, function(){
+var d = new Date();
+		var day = d.getDay();
+		var hour = d.getHours();
+		console.log(day);
+		console.log(hour);
+	var j = schedule.scheduleJob({minute: 58}, function(){
 		var d = new Date();
 		var day = d.getDay();
 		var hour = d.getHour();
@@ -62,6 +66,7 @@ app.get('/', function (req, res) {
 		}
 		console.log('Time for tea!');
 	});
+	res.send("Up And Running");
 })
 
 // for Facebook verification
