@@ -24,38 +24,39 @@ app.use(bodyParser.json())
 
 // Index route
 app.get('/', function (req, res) {
-	
-	var j = schedule.scheduleJob({minute: 59}, function(){
-		var d = new Date();
-		var day = d.getDay()
-		console.log('Time for tea!');
-		for (var city in links) {
-			for(var event in links[city]) {
-				if (event.day === day) {
-					client.keys('*', function (err, keys) {
-						if (err) return console.log(err);
-						console.dir(keys);
-						for(var i = 0, len = keys.length; i < len; i++) {
-							client.smembers(keys[i], function(err, reply) {
-								console.log(reply.indexOf(city+"-"+event));
-								if (reply.indexOf(city+"-"+event) !== -1) {
-									console.log("SENTTTT");
-									let message = "Its union day!! Dont forget to buy your "+event+" tickets \n Click the link to buy tickets "+event.link;
-									sendTextMessage(keys[i], message);
-								}
-							});
-						}
-					}); 
-				}
+	var d = new Date();
+	var day = d.getDay();
+	console.log(day);
+	console.log('Time for tea!');
+	for (var city in links) {
+		for(var event in links[city]) {
+			console.log("EVENT:");
+			console.log(links[city][event].name);
+			console.log("The Day:");
+			console.log(links[city][event].day);
+			if (links[city][event].day == day) {
+				var sendcity = city;
+				var sendevent = event;
+				client.keys('*', function (err, keys) {
+					if (err) return console.log(err);
+					console.dir(keys);
+					for(var i = 0, len = keys.length; i < len; i++) {
+						client.smembers(keys[i], function(err, reply) {
+							console.dir(reply);
+							var theeventname = sendcity+"-"+links[sendcity][sendevent].name
+							console.log(theeventname);
+							console.log(reply.indexOf(theeventname));
+							if (reply.indexOf(theeventname) !== -1) {
+								console.log("SENTTTT");
+								let message = "Its union day!! Dont forget to buy your "+sendevent+" tickets \n Click the link to buy tickets "+sendevent.link;
+								sendTextMessage(keys[i], message);
+							}
+						});
+					}
+				}); 
 			}
 		}
-	});
-
-	client.smembers('1417370371629299', function(err, reply) {
-		console.log(reply);
-		console.log(reply.indexOf(links.Lincoln[4].name));
-	});
-	res.send('hi');
+	}
 })
 
 // for Facebook verification
