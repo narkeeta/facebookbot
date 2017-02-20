@@ -3,16 +3,12 @@
 	"Lincoln" : [
 		
 		
-		{
-			"name": "Union Party",
-			"day": "0",
-			"link": "hello2@email.se"
-		},
+
 		
 		{
 			"name": "Lovedough",
 			"day": "1",
-			"link": "google.com"
+			"link": " "
 		},
 		
 		{
@@ -42,39 +38,11 @@
 		{
 			"name": "Kink Disko",
 			"day": "6",
-			"link": "hello2@email.se"
+			"link": " "
 		},
 		
 	
 	
-	
-	
-	"Sheffield" : [
-		
-		
-		{
-			"name": "Union Party",
-			"day": "1",
-			"link": "hello2@email.se"
-		},
-		
-		{
-			"name": "Superbowl",
-			"day": "0",
-			"link": "google.com"
-		},
-		
-		{
-			"name": "Adele Concert",
-			"day": "1",
-			"link": "hello2@email.se"
-		},
-		
-		{
-			"name": "Rave",
-			"day": "1",
-			"link": "hello2@emddail.se"
-		}
 		
 		
 	]
