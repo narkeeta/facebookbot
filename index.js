@@ -64,7 +64,15 @@ app.post('/webhook/', function (req, res) {
 		let sender = event.sender.id;
 		if (event.message && event.message.text) {
 			let text = event.message.text;
-
+			if (text === "Unsubscribe") {
+				
+				client.del(sender, function(err, reply) {
+					console.log(reply);
+					console.log("YOU DELETED THIS USER, I HOPE YOU WANTED TOO");
+					sendTextMessage(sender, "Okay, You're unsubscibed from your events, feel free to resubscribe if you want more updates!")
+				});
+				continue
+			}
 			if (event.message.quick_reply && event.message.quick_reply.payload) {
 				let payload = event.message.quick_reply.payload;
 				if (links.hasOwnProperty(text)) {
@@ -92,6 +100,7 @@ app.post('/webhook/', function (req, res) {
 		}
 		if (event.postback) {
 			if (event.postback.payload === "DEVELOPER_DEFINED_PAYLOAD_FOR_UNSUB") {
+				console.log(sender);
 				client.del(sender, function(err, reply) {
 					console.log(reply);
 					console.log("YOU DELETED THIS USER, I HOPE YOU WANTED TOO");
