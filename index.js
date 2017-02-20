@@ -64,30 +64,30 @@ app.post('/webhook/', function (req, res) {
 		let sender = event.sender.id;
 		if (event.message && event.message.text) {
 			let text = event.message.text;
-			if (event.message.)
-				if (event.message.quick_reply && event.message.quick_reply.payload) {
-					let payload = event.message.quick_reply.payload;
-					if (links.hasOwnProperty(text)) {
-						if (payload === 'CITY_GIVEN') {
-							askCityEvents(sender, text, "I do love a good party in "+text+" 💃💃💃", "What club events in "+text+" would you like me to remind you for? 🙌🙌")
-						}
-						continue
+
+			if (event.message.quick_reply && event.message.quick_reply.payload) {
+				let payload = event.message.quick_reply.payload;
+				if (links.hasOwnProperty(text)) {
+					if (payload === 'CITY_GIVEN') {
+						askCityEvents(sender, text, "I do love a good party in "+text+" 💃💃💃", "What club events in "+text+" would you like me to remind you for? 🙌🙌")
 					}
-					if (links.hasOwnProperty(payload)) {
-						for (var a = 0; a < links[payload].length; a++) {
-							if (links[payload][a].name === text) {
-								let days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saterday"];
-								let theirday = days[links[payload][a].day];
-								client.sadd([sender, payload+"-"+links[payload][a].name ], function(err, reply) {
-									console.log(reply); // 3
-								});
-								askCityEvents(sender, payload, "Fab, I'll remind you "+theirday+" to get a ticket for the "+links[payload][a].name+"  event! 😃", "If you're a true sessioner I'm sure there might be other events I can remind you for?😜");
-								break;
-							}
-						}
-						continue
-					}
+					continue
 				}
+				if (links.hasOwnProperty(payload)) {
+					for (var a = 0; a < links[payload].length; a++) {
+						if (links[payload][a].name === text) {
+							let days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saterday"];
+							let theirday = days[links[payload][a].day];
+							client.sadd([sender, payload+"-"+links[payload][a].name ], function(err, reply) {
+								console.log(reply); // 3
+							});
+							askCityEvents(sender, payload, "Fab, I'll remind you "+theirday+" to get a ticket for the "+links[payload][a].name+"  event! 😃", "If you're a true sessioner I'm sure there might be other events I can remind you for?😜");
+							break;
+						}
+					}
+					continue
+				}
+			}
 			sendStarterButtons(sender)
 		}
 		if (event.postback) {
