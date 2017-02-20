@@ -1,11 +1,11 @@
 {
 	
-	
+	//ONLY EDIT UNDER THIS LINE P
 	"Lincoln" : [
 		
 		
 		{
-			"name": "hi",
+			"name": "Union Party",
 			"day": "1",
 			"link": "hello2@email.se"
 		},
@@ -17,51 +17,17 @@
 		},
 		
 		{
-			"name": "hdddddi",
+			"name": "Adele Concert",
 			"day": "1",
 			"link": "hello2@email.se"
 		},
 		
 		{
-			"name": "hasdfasdfi",
+			"name": "Rave",
 			"day": "1",
-			"link": "hello2@email.se"
-		},
-		
-		{
-			"name": "hiasdfasdfasd",
-			"day": "1",
-			"link": "hello2@email.se"
-		},
-		
-		
-		{
-			"name": "bye",
-			"day": "3",
 			"link": "hello2@email.se"
 		}
-	
 		
-	],
-	
-	
-	
-	"Tucson" : [
-		
-		
-		{
-			"name": "hi",
-			"day": "1",
-			"link": "hello2@email.se"
-		},
-		
-		
-		{
-			"name": "bye",
-			"day": "3",
-			"link": "hello2@email.se"
-		}
-	
 		
 	],
 	
@@ -71,23 +37,31 @@
 		
 		
 		{
-			"name": "hi",
-			"day": "3",
+			"name": "Union Party",
+			"day": "1",
 			"link": "hello2@email.se"
 		},
 		
+		{
+			"name": "Superbowl",
+			"day": "0",
+			"link": "google.com"
+		},
 		
 		{
-			"name": "bye",
-			"day": "3",
+			"name": "Adele Concert",
+			"day": "1",
+			"link": "hello2@email.se"
+		},
+		
+		{
+			"name": "Rave",
+			"day": "1",
 			"link": "hello2@email.se"
 		}
+		
+		
 	]
-	
-	
-	
-	
-	
 	
 	
 }

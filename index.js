@@ -255,7 +255,7 @@ function askCityEvents(sender, city, first, second) {
 						messageData.quick_replies.push(obj);
 					}
 				}
-				if (messageData.quick_replies.length === 0) {
+				if (messageData.quick_replies.length === 1) {
 					messageData.text = "Wow! It looks like you've signed up for all the "+city+" events already! 🙌🙌 You can click another city below, otherwise I'll hit you up the day of your events!";
 					for (var key in links) {
 						if (links.hasOwnProperty(key)) {
