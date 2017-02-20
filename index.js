@@ -64,34 +64,44 @@ app.post('/webhook/', function (req, res) {
 		let sender = event.sender.id;
 		if (event.message && event.message.text) {
 			let text = event.message.text;
-			if (event.message.quick_reply && event.message.quick_reply.payload) {
-				let payload = event.message.quick_reply.payload;
-				if (links.hasOwnProperty(text)) {
-					if (payload === 'CITY_GIVEN') {
-						askCityEvents(sender, text, "I do love a good party in "+text+" 💃💃💃", "What club events in "+text+" would you like me to remind you for? 🙌🙌")
-					}
-					continue
-				}
-				if (links.hasOwnProperty(payload)) {
-					for (var a = 0; a < links[payload].length; a++) {
-						if (links[payload][a].name === text) {
-							let days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saterday"];
-							let theirday = days[links[payload][a].day];
-							client.sadd([sender, payload+"-"+links[payload][a].name ], function(err, reply) {
-								console.log(reply); // 3
-							});
-							askCityEvents(sender, payload, "Fab, I'll remind you "+theirday+" to get a ticket for the "+links[payload][a].name+"  event! 😃", "If you're a true sessioner I'm sure there might be other events I can remind you for?😜");
-							break;
+			if (event.message.)
+				if (event.message.quick_reply && event.message.quick_reply.payload) {
+					let payload = event.message.quick_reply.payload;
+					if (links.hasOwnProperty(text)) {
+						if (payload === 'CITY_GIVEN') {
+							askCityEvents(sender, text, "I do love a good party in "+text+" 💃💃💃", "What club events in "+text+" would you like me to remind you for? 🙌🙌")
 						}
+						continue
 					}
-					continue
+					if (links.hasOwnProperty(payload)) {
+						for (var a = 0; a < links[payload].length; a++) {
+							if (links[payload][a].name === text) {
+								let days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saterday"];
+								let theirday = days[links[payload][a].day];
+								client.sadd([sender, payload+"-"+links[payload][a].name ], function(err, reply) {
+									console.log(reply); // 3
+								});
+								askCityEvents(sender, payload, "Fab, I'll remind you "+theirday+" to get a ticket for the "+links[payload][a].name+"  event! 😃", "If you're a true sessioner I'm sure there might be other events I can remind you for?😜");
+								break;
+							}
+						}
+						continue
+					}
 				}
-			}
 			sendStarterButtons(sender)
 		}
 		if (event.postback) {
-			let text = JSON.stringify(event.postback)
-			sendTextMessage(sender, "Postback received: " + text.substring(0, 200), token)
+			if (event.postback.payload === "DEVELOPER_DEFINED_PAYLOAD_FOR_UNSUB") {
+				client.del(sender, function(err, reply) {
+					console.log(reply);
+					console.log("YOU DELETED THIS USER, I HOPE YOU WANTED TOO");
+					continue
+				});
+			}
+			if (event.postback.payload === "DEVELOPER_DEFINED_PAYLOAD_FOR_HELP") {
+				sendStarterButtons(sender);
+				continue
+			}
 			continue
 		}
 	}
@@ -357,7 +367,7 @@ function setmenu() {
 				{
 					"type":"postback",
 					"title":"Unsubscribe",
-					"payload":"DEVELOPER_DEFINED_PAYLOAD_FOR_START_ORDER"
+					"payload":"DEVELOPER_DEFINED_PAYLOAD_FOR_UNSUB"
 				}
 			]
 		}
