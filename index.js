@@ -24,39 +24,42 @@ app.use(bodyParser.json())
 
 // Index route
 app.get('/', function (req, res) {
-	var d = new Date();
-	var day = d.getDay();
-	console.log(day);
-	console.log('Time for tea!');
-	for (var city in links) {
-		for(var event in links[city]) {
-			console.log("EVENT:");
-			console.log(links[city][event].name);
-			console.log("The Day:");
-			console.log(links[city][event].day);
-			if (links[city][event].day == day) {
-				var sendcity = city;
-				var sendevent = event;
-				client.keys('*', function (err, keys) {
-					if (err) return console.log(err);
-					console.dir(keys);
-					for(var i = 0, len = keys.length; i < len; i++) {
-						client.smembers(keys[i], function(err, reply) {
-							console.dir(reply);
-							var theeventname = sendcity+"-"+links[sendcity][sendevent].name
-							console.log(theeventname);
-							console.log(reply.indexOf(theeventname));
-							if (reply.indexOf(theeventname) !== -1) {
-								console.log("SENTTTT");
-								let message = "Its union day!! Dont forget to buy your "+sendevent+" tickets \n Click the link to buy tickets "+sendevent.link;
-								sendTextMessage(keys[i], message);
-							}
-						});
-					}
-				}); 
+
+	var j = schedule.scheduleJob({minute: 41}, function(){
+		var d = new Date();
+		var day = d.getDay();
+		console.log(day);
+		for (var city in links) {
+			for(var event in links[city]) {
+				console.log("EVENT:");
+				console.log(links[city][event].name);
+				console.log("The Day:");
+				console.log(links[city][event].day);
+				if (links[city][event].day == day) {
+					var sendcity = city;
+					var sendevent = event;
+					client.keys('*', function (err, keys) {
+						if (err) return console.log(err);
+						console.dir(keys);
+						for(var i = 0, len = keys.length; i < len; i++) {
+							client.smembers(keys[i], function(err, reply) {
+								console.dir(reply);
+								var theeventname = sendcity+"-"+links[sendcity][sendevent].name
+								console.log(theeventname);
+								console.log(reply.indexOf(theeventname));
+								if (reply.indexOf(theeventname) !== -1) {
+									console.log("SENTTTT");
+									let message = "Its union day!! Dont forget to buy your "+sendevent+" tickets \n Click the link to buy tickets "+sendevent.link;
+									sendTextMessage(keys[i], message);
+								}
+							});
+						}
+					}); 
+				}
 			}
 		}
-	}
+		console.log('Time for tea!');
+	});
 })
 
 // for Facebook verification
