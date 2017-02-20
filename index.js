@@ -7,9 +7,9 @@ const schedule = require('node-schedule')
 const fs = require('fs')
 const links =  JSON.parse(fs.readFileSync('links.json', 'utf8'))
 const users =  JSON.parse(fs.readFileSync('users.json', 'utf8'))
-const client = require('redis').createClient("redis://h:pf774a537a5b827b61f980e643fdbc4172140d0e8dc9d1192337740b91e8f52f8@ec2-34-194-51-203.compute-1.amazonaws.com:29559")
+const client = require('redis').createClient(process.env.REDIS_URL)
 const app = express()
-const token = "EAADvYhJf9B8BAOSJKZBB9ZAKeoUx9qBWkQAMcQOEvbDGiprTDHRYIkVJGliGJZA6ZCuZA4w9FS3bZBZCSYv93LwxVzgkFqE45UdEdlcbZC2oakGctt7Uibqrpggv7LDyYCZCcTvINz4O9kCXvrcqdG3IXwniEx1Ja8JpwlrciBZBOVfAZDZD"
+const token = process.env.FB_PAGE_ACCESS_TOKEN
 
 
 app.set('port', (process.env.PORT || 5000))
@@ -119,7 +119,7 @@ function sendmessagesfromlocal(sendername, sendcity, sendevent) {
 }
 // for Facebook verification
 app.get('/webhook/', function (req, res) {
-	if (req.query['hub.verify_token'] === '2347234dds772347234') {
+	if (req.query['hub.verify_token'] === process.env.VERIFY_TOKEN) {
 		res.send(req.query['hub.challenge'])
 	}
 	res.send('Error, wrong token')
