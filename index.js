@@ -174,7 +174,7 @@ app.post('/webhook/', function (req, res) {
 			sendStarterButtons(sender)
 		}
 		if (event.postback) {
-			if (event.postback.payload === "DEVELOPER_DEFINED_PAYLOAD_FOR_START_ORDER") {
+			if (event.postback.payload === "remove_from_database") {
 				client.del(sender, function(err, reply) {
 					console.log(reply);
 					sendTextMessage(sender, "Okay! You've been unsubscribed from our service, I hope you come back and use us later!")
