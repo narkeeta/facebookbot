@@ -24,13 +24,33 @@ app.use(bodyParser.json())
 
 // Index route
 app.get('/', function (req, res) {
-	let senddata;
-	client.keys('*', function (err, keys) {
-		if (err) return console.log(err);
-		console.dir(keys);
-		for(var i = 0, len = keys.length; i < len; i++) {
+	
+	var j = schedule.scheduleJob({minute: 54}, function(){
+		var d = new Date();
+		var day = d.getDay()
+		console.log('Time for tea!');
+		for (var city in links) {
+			for(var event in links) {
+				if (event.day === day) {
+					client.keys('*', function (err, keys) {
+						if (err) return console.log(err);
+						console.dir(keys);
+						for(var i = 0, len = keys.length; i < len; i++) {
+							client.smembers(keys[i], function(err, reply) {
+								console.log(reply.indexOf(city+"-"+event));
+								if (reply.indexOf(city+"-"+event) !== -1) {
+									console.log("SENTTTT");
+									let message = "Its union day!! Dont forget to buy your "+event+" tickets \n Click the link to buy tickets "+event.link;
+									sendTextMessage(keys[i], message);
+								}
+							});
+						}
+					}); 
+				}
+			}
 		}
-	}); 
+	});
+
 	client.smembers('1417370371629299', function(err, reply) {
 		console.log(reply);
 		console.log(reply.indexOf(links.Lincoln[4].name));
