@@ -95,8 +95,8 @@ app.post('/webhook/', function (req, res) {
 				client.del(sender, function(err, reply) {
 					console.log(reply);
 					console.log("YOU DELETED THIS USER, I HOPE YOU WANTED TOO");
-					continue
 				});
+				continue
 			}
 			if (event.postback.payload === "DEVELOPER_DEFINED_PAYLOAD_FOR_HELP") {
 				sendStarterButtons(sender);
