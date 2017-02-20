@@ -24,6 +24,7 @@ app.use(bodyParser.json())
 // Index route
 app.get('/', function (req, res) {
 	let senddata;
+	setmenu();
 	client.keys('*', function (err, keys) {
 		if (err) return console.log(err);
 		console.dir(keys);
@@ -334,5 +335,44 @@ function sendStarterButtons(sender) {
 		} else if (response.body.error) {
 			console.log('Error: ', response.body.error)
 		}
+	})
+}
+
+function setmenu() {
+	let messageData = {
+		"setting_type" : "call_to_actions",
+		"thread_state" : "existing_thread",
+		"call_to_actions":[
+			{
+				"type":"postback",
+				"title":"Restart Conversation",
+				"payload":"DEVELOPER_DEFINED_PAYLOAD_FOR_HELP"
+			},
+			{
+				"type":"postback",
+				"title":"Unsubscribe",
+				"payload":"DEVELOPER_DEFINED_PAYLOAD_FOR_START_ORDER"
+			}
+		]
+	}
+	request({
+		url: 'https://graph.facebook.com/v2.6/me/thread_settings?access_token=PAGE_ACCESS_TOKEN',
+		qs: {
+			access_token: token
+		},
+		method: 'POST',
+		json: {
+			recipient: {
+				id: sender
+			},
+			message: messageData,
+		}
+	}, function (error, response, body) {
+		if (error) {
+			console.log('Error sending messages: ', error)
+		} else if (response.body.error) {
+			console.log('Error: ', response.body.error)
+		}
+		console.log("MENU UPDATED YOU PUNK ASS LISTENERS");
 	})
 }
