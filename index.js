@@ -9,7 +9,7 @@ const links =  JSON.parse(fs.readFileSync('links.json', 'utf8'))
 const users =  JSON.parse(fs.readFileSync('users.json', 'utf8'))
 const client = require('redis').createClient("redis://h:pf774a537a5b827b61f980e643fdbc4172140d0e8dc9d1192337740b91e8f52f8@ec2-34-194-51-203.compute-1.amazonaws.com:29559")
 const app = express()
-const token = process.env.FB_PAGE_ACCESS_TOKEN
+const token = "EAADvYhJf9B8BAOSJKZBB9ZAKeoUx9qBWkQAMcQOEvbDGiprTDHRYIkVJGliGJZA6ZCuZA4w9FS3bZBZCSYv93LwxVzgkFqE45UdEdlcbZC2oakGctt7Uibqrpggv7LDyYCZCcTvINz4O9kCXvrcqdG3IXwniEx1Ja8JpwlrciBZBOVfAZDZD"
 
 
 app.set('port', (process.env.PORT || 5000))
