@@ -7,7 +7,7 @@ const schedule = require('node-schedule')
 const fs = require('fs')
 const links =  JSON.parse(fs.readFileSync('links.json', 'utf8'))
 const users =  JSON.parse(fs.readFileSync('users.json', 'utf8'))
-const client = require('redis').createClient(process.env.REDIS_URL);
+const client = require('redis').createClient("redis://h:pf774a537a5b827b61f980e643fdbc4172140d0e8dc9d1192337740b91e8f52f8@ec2-34-194-51-203.compute-1.amazonaws.com:29559");
 const app = express()
 
 
@@ -32,6 +32,7 @@ app.get('/', function (req, res) {
 	}); 
 	client.smembers('1417370371629299', function(err, reply) {
 		console.log(reply);
+		console.log(reply.indexOf(links.Lincoln[4].name));
 	});
 	res.send('hi');
 })
@@ -140,10 +141,10 @@ function askCityEvents(sender, city, first) {
 
 	client.exists(sender, function(err, reply) {
 		if (reply === 1) {
-			client.smembers(sender, function(err, reply) {
+			client.smembers(sender, function(err, thedata) {
 				console.log("client found sorting links");
 				for(var i = 0; i < links[city].length; i++) {
-					if (reply.indexOf(links[city][i].name) === -1) {
+					if (thedata.indexOf(links[city][i].name) === -1) {
 						let obj = {
 							"content_type":"text",
 							"title":links[city][i].name,
