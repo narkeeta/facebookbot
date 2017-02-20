@@ -103,9 +103,11 @@ app.post('/webhook/', function (req, res) {
 			if (event.postback.payload === "remove_from_database") {
 				sendStarterButtons(sender);
 				console.log("unsubbbbbbb");
+				continue
 			}
 			if (event.postback.payload === "DEVELOPER_DEFINED_PAYLOAD_FOR_HELP") {
 				sendStarterButtons(sender);
+				continue
 			}
 			continue
 		}
