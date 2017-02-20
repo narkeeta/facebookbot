@@ -67,7 +67,7 @@ app.post('/webhook/', function (req, res) {
 			if (event.message.quick_reply && event.message.quick_reply.payload) {
 				let payload = event.message.quick_reply.payload;
 				if (payload === "user_wants_to_go_home") {
-					sendTextMessage(sender, "Fair enough, if you fancy being reminded for more events in the future just come back and select them👌 Have an amazing night and don't do anything I wouldn't do! 🙈")
+					sendTextMessage(sender, "Fair enough, if you fancy being reminded for more events in the future just come back and select them👌\n Have an amazing night and don't do anything I wouldn't do! 🙈")
 					continue
 				}
 				if (links.hasOwnProperty(text)) {
