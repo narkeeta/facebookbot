@@ -7,28 +7,24 @@
 		{
 			"name": "hi",
 			"day": "1",
-			"hour": "1",
 			"link": "hello2@email.se"
 		},
 		
 		{
 			"name": "hdddddi",
 			"day": "1",
-			"hour": "1",
 			"link": "hello2@email.se"
 		},
 		
 		{
 			"name": "hasdfasdfi",
 			"day": "1",
-			"hour": "1",
 			"link": "hello2@email.se"
 		},
 		
 		{
 			"name": "hiasdfasdfasd",
 			"day": "1",
-			"hour": "1",
 			"link": "hello2@email.se"
 		},
 		
@@ -36,12 +32,13 @@
 		{
 			"name": "bye",
 			"day": "3",
-			"hour": "22",
 			"link": "hello2@email.se"
 		}
 	
 		
 	],
+	
+	
 	
 	"Tucson" : [
 		
@@ -49,7 +46,6 @@
 		{
 			"name": "hi",
 			"day": "1",
-			"hour": "1",
 			"link": "hello2@email.se"
 		},
 		
@@ -57,56 +53,11 @@
 		{
 			"name": "bye",
 			"day": "3",
-			"hour": "22",
 			"link": "hello2@email.se"
 		}
 	
 		
 	],
-	
-	"Baca" : [
-		
-		
-		{
-			"name": "hi",
-			"day": "1",
-			"hour": "1",
-			"link": "hello2@email.se"
-		},
-		
-		
-		{
-			"name": "bye",
-			"day": "3",
-			"hour": "22",
-			"link": "hello2@email.se"
-		}
-	
-		
-	],
-	
-	"Raven" : [
-		
-		
-		{
-			"name": "hi",
-			"day": "1",
-			"hour": "1",
-			"link": "hello2@email.se"
-		},
-		
-		
-		{
-			"name": "bye",
-			"day": "3",
-			"hour": "22",
-			"link": "hello2@email.se"
-		}
-	
-		
-	],
-	
-	
 	
 	
 	
@@ -116,7 +67,6 @@
 		{
 			"name": "hi",
 			"day": "3",
-			"hour": "22",
 			"link": "hello2@email.se"
 		},
 		
@@ -124,7 +74,6 @@
 		{
 			"name": "bye",
 			"day": "3",
-			"hour": "22",
 			"link": "hello2@email.se"
 		}
 	]

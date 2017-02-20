@@ -95,6 +95,7 @@ app.post('/webhook/', function (req, res) {
 				client.del(sender, function(err, reply) {
 					console.log(reply);
 					console.log("YOU DELETED THIS USER, I HOPE YOU WANTED TOO");
+					sendTextMessage(sender, "Okay, You're unsubscibed from your events, feel free to resubscribe if you want more updates!")
 				});
 				continue
 			}
