@@ -100,7 +100,7 @@ app.post('/webhook/', function (req, res) {
 		}
 		if (event.postback) {
 			if (event.postback.payload === "DEVELOPER_DEFINED_PAYLOAD_FOR_UNSUB") {
-				sendTextMessage(sender, "Okay, You're unsubscibed from your events, feel free to resubscribe if you want more updates!");
+				sendStarterButtons(sender);
 			}
 			if (event.postback.payload === "DEVELOPER_DEFINED_PAYLOAD_FOR_HELP") {
 				sendStarterButtons(sender);
