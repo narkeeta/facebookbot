@@ -75,7 +75,7 @@ app.post('/webhook/', function (req, res) {
 						if (links[payload][a].name === text) {
 							let days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saterday"];
 							let theirday = days[links[payload][a].day];
-							client.sadd([sender, links[payload][a]], function(err, reply) {
+							client.sadd([sender, ""+links[payload][a]], function(err, reply) {
 								console.log(reply); // 3
 							});
 							askCityEventsTwo(sender, payload, "Fab, I'll remind you "+theirday+" to get a ticket for the "+links[payload][a].name+"  event! 😃");
@@ -136,30 +136,40 @@ function askCityEvents(sender, city, first) {
 		"text":"What club events in "+city+" would you like me to remind you for? 🙌🙌",
 		"quick_replies":[]
 	}
-	for(var i = 0; i < links[city].length; i++) {
-		if (users.hasOwnProperty(sender)) {
-			if (users.sender.hasOwnProperty(city)) {
-				if (users.sender.city.indexOf(links[city][i].name) !== -1) {
+
+
+	client.exists(sender, function(err, reply) {
+		if (reply === 1) {
+			client.smembers(sender, function(err, reply) {
+				for(var i = 0; i < links[city].length; i++) {
+					if (reply.indexOf(links[city][i].name) === -1) {
+						let obj = {
+							"content_type":"text",
+							"title":links[city][i].name,
+							"payload":"USER_EVENT_"+city+"_" + links[city][i].name
+						};
+						messageData.quick_replies[i] = obj;	
+					}
 				}
-				else {
-					var obj = {
-						"content_type":"text",
-						"title":links[city][i].name,
-						"payload":"USER_EVENT_"+city+"_" + links[city][i].name
-					};
-					messageData.quick_replies[i] = obj;	
-				}
+			});
+		} else {
+			for(var i = 0; i < links[city].length; i++) {
+				let obj = {
+					"content_type":"text",
+					"title":links[city][i].name,
+					"payload":"USER_EVENT_"+city+"_" + links[city][i].name
+				};
+				messageData.quick_replies[i] = obj;	
 			}
 		}
-		else {
-			var obj = {
-				"content_type":"text",
-				"title":links[city][i].name,
-				"payload":city
-			};
-			messageData.quick_replies[i] = obj;
-		}
-	}
+	});
+
+
+
+
+
+
+	
 	request({
 		url: 'https://graph.facebook.com/v2.6/me/messages',
 		qs: {
