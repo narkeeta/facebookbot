@@ -75,7 +75,7 @@ app.post('/webhook/', function (req, res) {
 						if (links[payload][a].name === text) {
 							let days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saterday"];
 							let theirday = days[links[payload][a].day];
-							client.sadd([sender, ""+links[payload][a]], function(err, reply) {
+							client.sadd([sender, links[payload][a].name ], function(err, reply) {
 								console.log(reply); // 3
 							});
 							askCityEventsTwo(sender, payload, "Fab, I'll remind you "+theirday+" to get a ticket for the "+links[payload][a].name+"  event! 😃");
