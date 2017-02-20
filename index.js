@@ -144,13 +144,15 @@ function askCityEvents(sender, city, first) {
 			client.smembers(sender, function(err, thedata) {
 				console.log("client found sorting links");
 				for(var i = 0; i < links[city].length; i++) {
+					console.log(links[city][i]);
+					console.log(thedata);
 					if (thedata.indexOf(links[city][i].name) === -1) {
 						let obj = {
 							"content_type":"text",
 							"title":links[city][i].name,
 							"payload":city
 						};
-						messageData.quick_replies[i] = obj;	
+						messageData.quick_replies.push(obj);
 					}
 				}
 			});
