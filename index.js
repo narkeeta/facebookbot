@@ -25,7 +25,6 @@ app.use(bodyParser.json())
 // Index route
 app.get('/', function (req, res) {
 	let senddata;
-	setmenu();
 	client.keys('*', function (err, keys) {
 		if (err) return console.log(err);
 		console.dir(keys);
@@ -101,7 +100,7 @@ app.post('/webhook/', function (req, res) {
 		}
 		if (event.postback) {
 			if (event.postback.payload === "DEVELOPER_DEFINED_PAYLOAD_FOR_UNSUB") {
-				sendTextMessage(sender, "Okay, You're unsubscibed from your events, feel free to resubscribe if you want more updates!")
+				sendTextMessage(sender, "Okay, You're unsubscibed from your events, feel free to resubscribe if you want more updates!");
 			}
 			if (event.postback.payload === "DEVELOPER_DEFINED_PAYLOAD_FOR_HELP") {
 				sendStarterButtons(sender);
