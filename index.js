@@ -106,12 +106,16 @@ function sendmessagesfromlocal(sendername, sendcity, sendevent) {
 		console.log(sendername);
 		console.dir(reply);
 		var theeventname = sendcity+"-"+links[sendcity][sendevent].name;
-		var theeventlink = sendcity+"-"+links[sendcity][sendevent].link;
-
-
+		var theeventlink = links[sendcity][sendevent].link;
+		
+		
 		if (reply.indexOf(theeventname) !== -1) {
-
-			let message = "Its union day!! Dont forget to buy your "+theeventname+" tickets \n\nClick the link to buy tickets "+theeventlink;
+			if (theeventlink === " ") {
+				let message = "Its union day!! Dont forget to buy your "+theeventname+" tickets and have a great time! 😃";
+			}
+			else {
+				let message = "Its union day!! Dont forget to buy your "+theeventname+" tickets! 😃\n\nClick the link to buy tickets "+theeventlink;	
+			}
 			sendTextMessage(sendername, message);
 		}
 	});
