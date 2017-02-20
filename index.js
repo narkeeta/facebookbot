@@ -25,6 +25,7 @@ app.use(bodyParser.json())
 // Index route
 app.get('/', function (req, res) {
 	let senddata;
+	setmenu();
 	client.keys('*', function (err, keys) {
 		if (err) return console.log(err);
 		console.dir(keys);
@@ -99,8 +100,9 @@ app.post('/webhook/', function (req, res) {
 			sendStarterButtons(sender)
 		}
 		if (event.postback) {
-			if (event.postback.payload === "DEVELOPER_DEFINED_PAYLOAD_FOR_UNSUB") {
+			if (event.postback.payload === "remove_from_database") {
 				sendStarterButtons(sender);
+				console.log("unsubbbbbbb");
 			}
 			if (event.postback.payload === "DEVELOPER_DEFINED_PAYLOAD_FOR_HELP") {
 				sendStarterButtons(sender);
@@ -370,7 +372,7 @@ function setmenu() {
 				{
 					"type":"postback",
 					"title":"Unsubscribe",
-					"payload":"DEVELOPER_DEFINED_PAYLOAD_FOR_UNSUB"
+					"payload":"remove_from_database"
 				}
 			]
 		}
