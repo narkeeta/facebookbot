@@ -29,10 +29,10 @@ var d = new Date();
 		var hour = d.getHours();
 		console.log(day);
 		console.log(hour);
-	var j = schedule.scheduleJob({minute: 59}, function(){
+	var j = schedule.scheduleJob({hour: 22}, function(){
 		var d = new Date();
 		var day = d.getDay();
-		var hour = d.getHour();
+		var hour = d.getHours();
 		console.log(day);
 		console.log(hour);
 		for (var city in links) {
