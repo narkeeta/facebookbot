@@ -25,7 +25,6 @@ app.use(bodyParser.json())
 // Index route
 app.get('/', function (req, res) {
 	let senddata;
-	setmenu();
 	client.keys('*', function (err, keys) {
 		if (err) return console.log(err);
 		console.dir(keys);
@@ -100,8 +99,17 @@ app.post('/webhook/', function (req, res) {
 			sendStarterButtons(sender)
 		}
 		if (event.postback) {
-			let text = JSON.stringify(event.postback)
-			sendTextMessage(sender, "Postback received: " + text.substring(0, 200), token)
+			if (event.postback.payload === "DEVELOPER_DEFINED_PAYLOAD_FOR_START_ORDER") {
+				client.del('frameworks', function(err, reply) {
+    				console.log(reply);
+					sendTextMessage(sender, "Okay! You've been unsubscribed from our service, I hope you come back and use us later!")
+				});
+				continue
+			}
+			if (event.postback.payload === "DEVELOPER_DEFINED_PAYLOAD_FOR_HELP") {
+				sendStarterButtons(sender);
+				continue
+			}
 			continue
 		}
 	}
