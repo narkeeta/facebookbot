@@ -468,5 +468,6 @@ function setmenu() {
 			console.log('Error: ', response.body.error)
 		}
 		console.log("MENU UPDATED YOU PUNK ASS LISTENERS");
+		console.log(response);
 	})
 }
