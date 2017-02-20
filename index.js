@@ -24,12 +24,14 @@ app.use(bodyParser.json())
 
 // Index route
 app.get('/', function (req, res) {
-var d = new Date();
+	var j = schedule.scheduleJob({hour: 19}, function(){
+
+		var d = new Date();
 		var day = d.getDay();
 		var hour = d.getHours();
 		console.log(day);
 		console.log(hour);
-	var j = schedule.scheduleJob({hour: 22}, function(){
+
 		var d = new Date();
 		var day = d.getDay();
 		var hour = d.getHours();
@@ -46,19 +48,12 @@ var d = new Date();
 					var sendevent = event;
 					client.keys('*', function (err, keys) {
 						if (err) return console.log(err);
-						console.dir(keys);
-						for(var i = 0, len = keys.length; i < len; i++) {
-							client.smembers(keys[i], function(err, reply) {
-								console.dir(reply);
-								var theeventname = sendcity+"-"+links[sendcity][sendevent].name
-								console.log(theeventname);
-								console.log(reply.indexOf(theeventname));
-								if (reply.indexOf(theeventname) !== -1) {
-									console.log("SENTTTT");
-									let message = "Its union day!! Dont forget to buy your "+sendevent+" tickets \n Click the link to buy tickets "+sendevent.link;
-									sendTextMessage(keys[i], message);
-								}
-							});
+						var datakeys = keys;
+
+						for(var i = 0, len = datakeys.length; i < len; i++) {
+							var tempi = i;
+							var senderid = datakeys[tempi];
+							sendmessagesfromlocal(senderid, sendcity, sendevent);
 						}
 					}); 
 				}
@@ -66,9 +61,62 @@ var d = new Date();
 		}
 		console.log('Time for tea!');
 	});
+	var j = schedule.scheduleJob({hour: 11}, function(){
+
+		var d = new Date();
+		var day = d.getDay();
+		var hour = d.getHours();
+		console.log(day);
+		console.log(hour);
+
+		var d = new Date();
+		var day = d.getDay();
+		var hour = d.getHours();
+		console.log(day);
+		console.log(hour);
+		for (var city in links) {
+			for(var event in links[city]) {
+				console.log("EVENT:");
+				console.log(links[city][event].name);
+				console.log("The Day:");
+				console.log(links[city][event].day);
+				if (links[city][event].day == day) {
+					var sendcity = city;
+					var sendevent = event;
+					client.keys('*', function (err, keys) {
+						if (err) return console.log(err);
+						var datakeys = keys;
+
+						for(var i = 0, len = datakeys.length; i < len; i++) {
+							var tempi = i;
+							var senderid = datakeys[tempi];
+							sendmessagesfromlocal(senderid, sendcity, sendevent);
+						}
+					}); 
+				}
+			}
+		}
+		console.log('Time for tea!');
+	});
+
 	res.send("Up And Running");
 })
 
+function sendmessagesfromlocal(sendername, sendcity, sendevent) {
+	client.smembers(sendername, function(err, reply) {
+		console.log(sendername);
+		console.dir(reply);
+		var theeventname = sendcity+"-"+links[sendcity][sendevent].name;
+		var theeventlink = sendcity+"-"+links[sendcity][sendevent].link;
+
+
+		if (reply.indexOf(theeventname) !== -1) {
+
+			let message = "Its union day!! Dont forget to buy your "+theeventname+" tickets \n\nClick the link to buy tickets "+theeventlink;
+			sendTextMessage(sendername, message);
+		}
+	});
+}
 // for Facebook verification
 app.get('/webhook/', function (req, res) {
 	if (req.query['hub.verify_token'] === '2347234dds772347234') {
@@ -112,11 +160,10 @@ app.post('/webhook/', function (req, res) {
 						if (links[payload][a].name === text) {
 							let days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saterday"];
 							let theirday = days[links[payload][a].day];
-							let senderID = sender;
 							client.sadd([sender, payload+"-"+links[payload][a].name ], function(err, reply) {
 								console.log(reply); // 3
 							});
-							askCityEvents(senderID, payload, "Fab, I'll remind you "+theirday+" to get a ticket for the "+links[payload][a].name+"  event! 😃", "If you're a true sessioner I'm sure there might be other events I can remind you for?😜");
+							askCityEvents(sender, payload, "Fab, I'll remind you "+theirday+" to get a ticket for the "+links[payload][a].name+"  event! 😃", "If you're a true sessioner I'm sure there might be other events I can remind you for?😜");
 							break;
 						}
 					}
