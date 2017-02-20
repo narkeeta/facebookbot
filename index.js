@@ -24,11 +24,18 @@ app.use(bodyParser.json())
 
 // Index route
 app.get('/', function (req, res) {
-
-	var j = schedule.scheduleJob({minute: 41}, function(){
+	var d = new Date();
+	var c = new Date();
+	var day = d.getUTCHours();
+	var hours = c.get();
+	console.log(day);
+	console.log(hour);
+	var j = schedule.scheduleJob({minute: 52}, function(){
 		var d = new Date();
 		var day = d.getDay();
+		var hour = d.getHour();
 		console.log(day);
+		console.log(hour);
 		for (var city in links) {
 			for(var event in links[city]) {
 				console.log("EVENT:");
