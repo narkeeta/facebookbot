@@ -47,9 +47,10 @@ app.get('/', function (req, res) {
 					client.keys('*', function (err, keys) {
 						if (err) return console.log(err);
 						var datakeys = keys;
-
+                          
 						for(var i = 0, len = datakeys.length; i < len; i++) {
-							var tempi = i;
+							
+                            var tempi = i;
 							var senderid = datakeys[tempi];
 							sendmessagesfromlocal(senderid, sendcity, sendevent);
 						}
@@ -58,80 +59,7 @@ app.get('/', function (req, res) {
 			}
 		}
 		console.log('Time for tea!');
-	var j = schedule.scheduleJob({hour: 19}, function(){
-
-		var d = new Date();
-		var day = d.getDay();
-		var hour = d.getHours();
-		console.log(day);
-		console.log(hour);
-
-		var d = new Date();
-		var day = d.getDay();
-		var hour = d.getHours();
-		console.log(day);
-		console.log(hour);
-		for (var city in links) {
-			for(var event in links[city]) {
-				console.log("EVENT:");
-				console.log(links[city][event].name);
-				console.log("The Day:");
-				console.log(links[city][event].day);
-				if (links[city][event].day == day) {
-					var sendcity = city;
-					var sendevent = event;
-					client.keys('*', function (err, keys) {
-						if (err) return console.log(err);
-						var datakeys = keys;
-
-						for(var i = 0, len = datakeys.length; i < len; i++) {
-							var tempi = i;
-							var senderid = datakeys[tempi];
-							sendmessagesfromlocal(senderid, sendcity, sendevent);
-						}
-					}); 
-				}
-			}
-		}
-		console.log('Time for tea!');
-	});
-	var j = schedule.scheduleJob({hour: 11}, function(){
-
-		var d = new Date();
-		var day = d.getDay();
-		var hour = d.getHours();
-		console.log(day);
-		console.log(hour);
-
-		var d = new Date();
-		var day = d.getDay();
-		var hour = d.getHours();
-		console.log(day);
-		console.log(hour);
-		for (var city in links) {
-			for(var event in links[city]) {
-				console.log("EVENT:");
-				console.log(links[city][event].name);
-				console.log("The Day:");
-				console.log(links[city][event].day);
-				if (links[city][event].day == day) {
-					var sendcity = city;
-					var sendevent = event;
-					client.keys('*', function (err, keys) {
-						if (err) return console.log(err);
-						var datakeys = keys;
-
-						for(var i = 0, len = datakeys.length; i < len; i++) {
-							var tempi = i;
-							var senderid = datakeys[tempi];
-							sendmessagesfromlocal(senderid, sendcity, sendevent);
-						}
-					}); 
-				}
-			}
-		}
-		console.log('Time for tea!'); 
-	});
+	
 
 	res.send("Up And Running, This app sends out messages to the facbook bot, You just need this to load once to feel free to close it. Have a nice day!");
 })
