@@ -48,10 +48,13 @@ app.get('/', function (req, res) {
 					client.keys('*', function (err, keys) {
 						if (err) return console.log(err);
 						var datakeys = keys;
-                      console.log(datakeys);
+                      alert(datakeys);
 						for(var i = 0, len = datakeys.length; i < len; i++) {
                             var tempi = i;
 							var senderid = datakeys[tempi];
+                          alert(senderid);
+                          alert(sendcity);
+                          alert(sendevent);
 							sendmessagesfromlocal(senderid, sendcity, sendevent);
 						}
 					}); 
