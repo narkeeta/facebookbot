@@ -68,8 +68,8 @@ function sendmessagesfromlocal(sendername, sendcity, sendevent) {
 	client.smembers(sendername, function(err, reply) {
 		console.log(sendername);
 		console.dir(reply);
-		var theeventname = sendcity+"-"+links[sendcity][sendevent].name;
-		var theeventlink = links[sendcity][sendevent].link;
+		let theeventname = sendcity+"-"+links[sendcity][sendevent].name;
+		let theeventlink = links[sendcity][sendevent].link;
 		
 		
 		if (reply.indexOf(theeventname) !== -1) {
