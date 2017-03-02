@@ -47,11 +47,10 @@ app.get('/', function (req, res) {
 					client.keys('*', function (err, keys) {
 						if (err) return console.log(err);
 						var datakeys = keys;
-                          
 						for(var i = 0, len = datakeys.length; i < len; i++) {
-							
                             var tempi = i;
 							var senderid = datakeys[tempi];
+                            console.log()
 							sendmessagesfromlocal(senderid, sendcity, sendevent);
 						}
 					}); 
@@ -89,7 +88,7 @@ app.get('/webhook/', function (req, res) {
 		res.send(req.query['hub.challenge'])
 	}
 	res.send('Error, wrong token')
-})
+}) 
 
 // Spin up the server
 app.listen(app.get('port'), function () {
