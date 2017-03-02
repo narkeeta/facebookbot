@@ -41,16 +41,17 @@ app.get('/', function (req, res) {
 				console.log(links[city][event].name);
 				console.log("The Day:");
 				console.log(links[city][event].day);
-				if (links[city][event].day == day) {
+				if (links[city][event].day === day) {
+                    console.log("match");
 					var sendcity = city;
 					var sendevent = event;
 					client.keys('*', function (err, keys) {
 						if (err) return console.log(err);
 						var datakeys = keys;
+                      console.log(datakeys);
 						for(var i = 0, len = datakeys.length; i < len; i++) {
                             var tempi = i;
 							var senderid = datakeys[tempi];
-                            console.log()
 							sendmessagesfromlocal(senderid, sendcity, sendevent);
 						}
 					}); 
