@@ -48,13 +48,9 @@ app.get('/', function (req, res) {
 					client.keys('*', function (err, keys) {
 						if (err) return console.log(err);
 						var datakeys = keys;
-                      alert(datakeys);
 						for(var i = 0, len = datakeys.length; i < len; i++) {
                             var tempi = i;
 							var senderid = datakeys[tempi];
-                          alert(senderid);
-                          alert(sendcity);
-                          alert(sendevent);
 							sendmessagesfromlocal(senderid, sendcity, sendevent);
 						}
 					}); 
@@ -70,6 +66,7 @@ app.get('/', function (req, res) {
 function sendmessagesfromlocal(sendername, sendcity, sendevent) {
 	client.smembers(sendername, function(err, reply) {
 		console.log(sendername);
+        console.log("THE REPLY FOR THAT NAME");
 		console.dir(reply);
 		let theeventname = sendcity+"-"+links[sendcity][sendevent].name;
 		let theeventlink = links[sendcity][sendevent].link;
