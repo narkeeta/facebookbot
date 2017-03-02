@@ -130,7 +130,7 @@ app.get('/', function (req, res) {
 				}
 			}
 		}
-		console.log('Time for tea!');
+		console.log('Time for tea!'); 
 	});
 
 	res.send("Up And Running, This app sends out messages to the facbook bot, You just need this to load once to feel free to close it. Have a nice day!");
