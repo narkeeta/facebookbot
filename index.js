@@ -146,10 +146,10 @@ function sendmessagesfromlocal(sendername, sendcity, sendevent) {
 		
 		if (reply.indexOf(theeventname) !== -1) {
 			if (theeventlink === " ") {
-				let message = "Its union day!! Dont forget to buy your "+theeventname+" tickets and have a great time! 😃";
+				var message = "Its union day!! Dont forget to buy your "+theeventname+" tickets and have a great time! 😃";
 			}
 			else {
-				let message = "Its union day!! Dont forget to buy your "+theeventname+" tickets! 😃\n\nClick the link to buy tickets "+theeventlink;	
+				var message = "Its union day!! Dont forget to buy your "+theeventname+" tickets! 😃\n\nClick the link to buy tickets "+theeventlink;	
 			}
 			sendTextMessage(sendername, message);
 		}
