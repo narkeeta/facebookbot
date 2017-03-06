@@ -29,8 +29,8 @@ app.get('/', function (req, res) {
   var hour = d.getHours();
   console.log("day:"+day);
   console.log("hour:"+hour);
-  for (var city in links) {
-    for(var event in links[city]) {
+  for (let city in links) {
+    for(let event in links[city]) {
       console.log("EVENT:"+links[city][event].name);
       console.log("The Day:"+links[city][event].day);
       if (links[city][event].day == day) {
