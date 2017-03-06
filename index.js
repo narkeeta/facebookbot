@@ -43,6 +43,7 @@ app.get('/', function (req, res) {
           for(var i = 0, len = datakeys.length; i < len; i++) {
             var tempi = i;
             var senderid = datakeys[tempi];
+            console.log("sending to fucntion:"+senderid+", "+sendcity+", "+sendevent);
             sendmessagesfromlocal(senderid, sendcity, sendevent);
           }
         }); 
