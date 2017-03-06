@@ -35,7 +35,7 @@ app.get('/', function (req, res) {
       console.log("The Day:"+links[city][event].day);
       if (links[city][event].day == day) {
         var sendcity = city;
-        var sendevent = links[city][event].name;
+        var sendevent = event;
         console.log("MATCHED:"+city+","+event);
         client.keys('*', function (err, keys) {
           if (err) return console.log(err);
