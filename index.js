@@ -40,8 +40,6 @@ app.get('/', function (req, res) {
         client.keys('*', function (err, keys) {
           if (err) return console.log(err);
           var datakeys = keys;
-          console.log("DATAKEYS");
-          console.dir(datakeys);
           for(var i = 0, len = datakeys.length; i < len; i++) {
             var tempi = i;
             var senderid = datakeys[tempi];
@@ -60,7 +58,7 @@ app.get('/', function (req, res) {
 function sendmessagesfromlocal(sendername, sendcity, sendevent) {
   client.smembers(sendername, function(err, reply) {
     console.log(sendername);
-    console.log("THE REPLY FOR THAT NAME");
+    console.log("THE REPLY FOR THAT NAME, LOOKING FOR:"+sendcity+"-"+links[sendcity][sendevent].name);
     console.dir(reply);
     let theeventname = sendcity+"-"+links[sendcity][sendevent].name;
     let theeventlink = links[sendcity][sendevent].link;
