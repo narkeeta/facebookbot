@@ -24,31 +24,61 @@ app.use(bodyParser.json())
 // Index route
 app.get('/', function (req, res) {
   setmenu();
-  var d = new Date();
-  var day = d.getDay();
-  var hour = d.getHours();
-  console.log("day:"+day);
-  console.log("hour:"+hour);
-  for (let city in links) {
-    for(let event in links[city]) {
-      console.log("EVENT:"+links[city][event].name);
-      console.log("The Day:"+links[city][event].day);
-      if (links[city][event].day == day) {
-        console.log("MATCHED:"+city+","+event);
-        client.keys('*', function (err, keys) {
-          if (err) return console.log(err);
-          var datakeys = keys;
-          for(var i = 0, len = datakeys.length; i < len; i++) {
-            var tempi = i;
-            var senderid = datakeys[tempi];
-            console.log("sending to fucntion:"+senderid+", "+city+", "+event);
-            sendmessagesfromlocal(senderid, city, event);
-          }
-        }); 
+  var day_start = schedule.scheduleJob({hour: 11, minute: 0}, function(){
+    var d = new Date();
+    var day = d.getDay();
+    var hour = d.getHours();
+    console.log("day:"+day);
+    console.log("hour:"+hour);
+    for (let city in links) {
+      for(let event in links[city]) {
+        console.log("EVENT:"+links[city][event].name);
+        console.log("The Day:"+links[city][event].day);
+        if (links[city][event].day == day) {
+          console.log("MATCHED:"+city+","+event);
+          client.keys('*', function (err, keys) {
+            if (err) return console.log(err);
+            var datakeys = keys;
+            for(var i = 0, len = datakeys.length; i < len; i++) {
+              var tempi = i;
+              var senderid = datakeys[tempi];
+              console.log("sending to fucntion:"+senderid+", "+city+", "+event);
+              sendmessagesfromlocal(senderid, city, event);
+            }
+          }); 
+        }
       }
     }
-  }
-  console.log('Time for tea!');
+    console.log('Time for tea!');
+  });
+  
+  var day_end = schedule.scheduleJob({hour: 20, minute: 0}, function(){
+    var d = new Date();
+    var day = d.getDay();
+    var hour = d.getHours();
+    console.log("day:"+day);
+    console.log("hour:"+hour);
+    for (let city in links) {
+      for(let event in links[city]) {
+        console.log("EVENT:"+links[city][event].name);
+        console.log("The Day:"+links[city][event].day);
+        if (links[city][event].day == day) {
+          console.log("MATCHED:"+city+","+event);
+          client.keys('*', function (err, keys) {
+            if (err) return console.log(err);
+            var datakeys = keys;
+            for(var i = 0, len = datakeys.length; i < len; i++) {
+              var tempi = i;
+              var senderid = datakeys[tempi];
+              console.log("sending to fucntion:"+senderid+", "+city+", "+event);
+              sendmessagesfromlocal(senderid, city, event);
+            }
+          }); 
+        }
+      }
+    }
+    console.log('Time for tea!');
+  });
 
 
   res.send("Up And Running, This app sends out messages to the facbook bot, You just need this to load once to feel free to close it. Have a nice day!");
