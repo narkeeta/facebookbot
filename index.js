@@ -29,12 +29,7 @@ app.get('/', function (req, res) {
   var hour = d.getHours();
   console.log(day);
   console.log(hour);
-
-  var d = new Date();
-  var day = d.getDay();
-  var hour = d.getHours();
-  console.log(day);
-  console.log(hour);
+  
   for (var city in links) {
     for(var event in links[city]) {
       console.log("EVENT:");
@@ -49,6 +44,8 @@ app.get('/', function (req, res) {
         client.keys('*', function (err, keys) {
           if (err) return console.log(err);
           var datakeys = keys;
+          console.log("DATAKEYS");
+          console.dir(datakeys);
           for(var i = 0, len = datakeys.length; i < len; i++) {
             var tempi = i;
             var senderid = datakeys[tempi];
@@ -433,7 +430,6 @@ function setmenu() {
     } else if (response.body.error) {
       console.log('Error: ', response.body.error)
     }
-    console.log("MENU UPDATED YOU PUNK ASS LISTENERS");
-    console.log(response);
+    console.log("MENU UPDATED, Obviously. Get out of the console logs please.");
   })
 }
