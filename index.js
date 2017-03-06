@@ -27,17 +27,13 @@ app.get('/', function (req, res) {
   var d = new Date();
   var day = d.getDay();
   var hour = d.getHours();
-  console.log(day);
-  console.log(hour);
-  
+  console.log("day:"+day);
+  console.log("hour:"+hour);
   for (var city in links) {
     for(var event in links[city]) {
-      console.log("EVENT:");
-      console.log(links[city][event].name);
-      console.log("The Day:");
-      console.log(links[city][event].day);
-      
-      if (links[city][event].day === day) {
+      console.log("EVENT:"+links[city][event].name);
+      console.log("The Day:"+links[city][event].day);
+      if (links[city][event].day == day) {
         var sendcity = city;
         var sendevent = event;
         console.log("MATCHED:"+city+","+event);
